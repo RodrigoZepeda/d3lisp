@@ -102,8 +102,22 @@
                                 
                                 <!-- This is the part that lisp changes -->"
                                 "<script>"
+"/*---------------------------------VARIABLES FOR LISP LOOP
+*/"
                                     "var xdata = "  (to_javascript_array x) ";"
                                     "var ydata = "  (to_javascript_array y) ";"
+                                    "var scatter    = " scatter ";"
+                                    "var line       = " line ";"
+                                    "var radii          = "  (write-to-string size) ";"
+                                    "var linewidth      = "  (write-to-string linewidth) ";"
+                                    "var lineopacity    = "  (write-to-string lineopacity) ";"
+                                    "var scatteropacity = "  (write-to-string scatteropacity) ";"
+                                    "var scattercolor   = "  (concatenate 'string "'" scattercolor "'") ";"
+                                    "var linecolor      = "  (concatenate 'string "'" linecolor "'") ";"
+                                    "var strokefill     = "  (concatenate 'string "'" strokefill "'") ";"
+                                    "var plotcurve = d3.curve" interpolation ";"                                    
+"/*---------------------------------END OF VARIABLES FOR LISP LOOP*/
+"                                    
                                     "var xlab  = "  (concatenate 'string "'" xlab "'")  ";"
                                     "var ylab  = "  (concatenate 'string "'" ylab "'")  ";"
                                     "var title = "  (concatenate 'string "'" title "'") ";"
@@ -116,26 +130,15 @@
                                     "var showXaxis  = " showXaxis ";"
                                     "var showYaxis  = " showYaxis ";"
                                     "var save       = " save ";"
-                                    "var scatter    = " scatter ";"
-                                    "var line       = " line ";"
-                                    "var radii          = "  (write-to-string size) ";"
-                                    "var linewidth      = "  (write-to-string linewidth) ";"
-                                    "var lineopacity    = "  (write-to-string lineopacity) ";"
-                                    "var scatteropacity = "  (write-to-string scatteropacity) ";"
-                                    "var scattercolor   = "  (concatenate 'string "'" scattercolor "'") ";"
-                                    "var linecolor      = "  (concatenate 'string "'" linecolor "'") ";"
-                                    "var strokefill     = "  (concatenate 'string "'" strokefill "'") ";"
                                     "var axisX_color    = "  (concatenate 'string "'" axisX_color "'") ";"
                                     "var axisY_color    = "  (concatenate 'string "'" axisY_color "'") ";"
                                     "var axisX_label_color  = " (concatenate 'string "'" axisX_label_color "'") ";"
                                     "var axisY_label_color  = " (concatenate 'string "'" axisY_label_color "'") ";"
                                     "var axisX_tick_color   = " (concatenate 'string "'" axisX_tick_color "'") ";"
                                     "var axisY_tick_color   = " (concatenate 'string "'" axisY_tick_color "'") ";"
-                                    "var plotcurve = d3.curve" interpolation ";"
                                     "var squareplot = " squareplot ";"
                                     "var outercolor = " (concatenate 'string "'" outercolor "'") ";"
-                                    "var innercolor = " (concatenate 'string "'" innercolor "'") ";"
-                                    
+                                    "var innercolor = " (concatenate 'string "'" innercolor "'") ";" 
                                 "</script>"
     "                           <!-- D3JS script for plotting-->
                                 <script>
@@ -234,7 +237,7 @@
                                                 .text(ylab); 
                                         }
                                         
-//--------------------------------------PART THAT NEEDS TO BE IN LISP LOOP              
+/*--------------------------------------PART THAT NEEDS TO BE IN LISP LOOP*/
                                         // Creating path using data in pathinfo and path data generator
                                         if (line){
                                             
@@ -263,7 +266,7 @@
                                                 .style('opacity',scatteropacity)
                                                 .style('fill', scattercolor);
                                         }
-//--------------------------------------END OF PART THAT NEEDS TO BE IN LISP LOOP                                                      
+/*--------------------------------------END OF PART THAT NEEDS TO BE IN LISP LOOP*/
                                     </script>"
                                     "<!-- SCRIPT FOR SAVING; ADAPTED FROM http://bl.ocks.org/Rokotyan/0556f8facbaf344507cdc45dc3622177-->
                                     <script>
