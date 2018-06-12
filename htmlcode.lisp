@@ -90,21 +90,8 @@
                                 inlineMath: [['$','$'], ['\\(','\\)']],
                                 processEscapes: true,
                             },
-                            TeX: { equationNumbers: { autoNumber: 'AMS' } }
                         });
                     </script>
-                    <style>
-                        .inner {
-                            fill: rgb(18, 202, 141);
-                            stroke: #000;
-                            stroke-dasharray: 3, 4;
-                        }
-                        
-                        .points {
-                            opacity: 1;
-                        }
-
-                    </style>
             </head>
             <body>
                 <div class = 'panel panel-default'>
@@ -156,11 +143,11 @@
                                             padding = {top: 30, right: 30, bottom: 60, left: 60};
 
                                         if (squareplot){
-                                            var outerHeight  = Math.min(Math.max(document.documentElement['clientHeight'], document.body['scrollHeight'], document.documentElement['scrollHeight'], document.body['offsetHeight'], document.documentElement['offsetHeight']), Math.max(document.documentElement['clientWidth'], document.body['scrollWidth'], document.documentElement['scrollWidth'], document.body['offsetWidth'], document.documentElement['offsetWidth'])), 
+                                            var outerHeight  = 0.9*Math.min(Math.max(document.documentElement['clientHeight'], document.body['scrollHeight'], document.documentElement['scrollHeight'], document.body['offsetHeight'], document.documentElement['offsetHeight']), Math.max(document.documentElement['clientWidth'], document.body['scrollWidth'], document.documentElement['scrollWidth'], document.body['offsetWidth'], document.documentElement['offsetWidth'])), 
                                                 outerWidth   = outerHeight;
                                         } else {
-                                            var outerHeight  = 0.95*Math.max(document.documentElement['clientHeight'], document.body['scrollHeight'], document.documentElement['scrollHeight'], document.body['offsetHeight'], document.documentElement['offsetHeight']), 
-                                                outerWidth   = 0.95*Math.max(document.documentElement['clientWidth'], document.body['scrollWidth'], document.documentElement['scrollWidth'], document.body['offsetWidth'], document.documentElement['offsetWidth']);
+                                            var outerHeight  = 0.9*Math.max(document.documentElement['clientHeight'], document.body['scrollHeight'], document.documentElement['scrollHeight'], document.body['offsetHeight'], document.documentElement['offsetHeight']), 
+                                                outerWidth   = 0.9*Math.max(document.documentElement['clientWidth'], document.body['scrollWidth'], document.documentElement['scrollWidth'], document.body['offsetWidth'], document.documentElement['offsetWidth']);
                                         }
 
                                         var innerWidth   = outerWidth  - margin.left  - margin.right,
@@ -198,6 +185,15 @@
                                         Yscale = d3.scaleLinear()
                                                     .domain([ymin, ymax])
                                                     .range([height, 0]);
+
+                                        //Create plot title
+                                        inner.append('text')
+                                                .attr('x', (width / 2))             
+                                                .attr('y', 0 - (margin.top / 2))
+                                                .attr('text-anchor', 'middle')  
+                                                .style('font-size', '18px') 
+                                                .style('font-weight', 'bold')  
+                                                .text(title);
 
                                         if (showXaxis){
                                             axisX  = inner.append('g')
@@ -238,17 +234,18 @@
                                                 .text(ylab); 
                                         }
                                         
-
-                                        // Specify the function for generating path data             
-                                        var d3line2 = d3.line()
-                                                        .x(function(d){return Xscale(d);})
-                                                        .y(function(d,i){return Yscale(ydata[i]);})
-                                                        .curve(plotcurve); 
-                                                        
+//--------------------------------------PART THAT NEEDS TO BE IN LISP LOOP              
                                         // Creating path using data in pathinfo and path data generator
                                         if (line){
+                                            
+                                            // Specify the function for generating path data             
+                                            var myline = d3.line()
+                                                .x(function(d){return Xscale(d);})
+                                                .y(function(d,i){return Yscale(ydata[i]);})
+                                                .curve(plotcurve); 
+
                                             inner.append('path')
-                                                .attr('d', d3line2(xdata))
+                                                .attr('d', myline(xdata))
                                                 .style('stroke-width', linewidth)
                                                 .style('stroke', linecolor)
                                                 .style('opacity',lineopacity)
@@ -266,16 +263,10 @@
                                                 .style('opacity',scatteropacity)
                                                 .style('fill', scattercolor);
                                         }
-
-                                        //Create plot title
-                                        inner.append('text')
-                                                .attr('x', (width / 2))             
-                                                .attr('y', 0 - (margin.top / 2))
-                                                .attr('text-anchor', 'middle')  
-                                                .style('font-size', '18px') 
-                                                .style('font-weight', 'bold')  
-                                                .text(title);
-
+//--------------------------------------END OF PART THAT NEEDS TO BE IN LISP LOOP                                                      
+                                    </script>"
+                                    "<!-- SCRIPT FOR SAVING; ADAPTED FROM http://bl.ocks.org/Rokotyan/0556f8facbaf344507cdc45dc3622177-->
+                                    <script>
                                         //Save button
                                         d3.select('#generate').on('click', function(){
                                             var svgString = getSVGString(outer.node());
@@ -285,7 +276,7 @@
                                                 saveAs( dataBlob, filename ); // FileSaver.js function
                                             }
                                         });
-
+                                        
                                         // Below are the functions that handle actual exporting:
                                         // getSVGString ( svgNode ) and svgString2Image( svgString, width, height, format, callback )
                                         function getSVGString( svgNode ) {
