@@ -1,4 +1,5 @@
-
+(setf *default-pathname-defaults* (truename "/Users/insp/Dropbox/UNAM_POSGRADO/CALC SIMB/proyecto/lispplot/"))
+(load "setup.lisp")
 
 ;Para evitar errores en sbcl
 (defvar x NIL)

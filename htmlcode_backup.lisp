@@ -10,53 +10,34 @@
                             )
     "Interpolations: Linear | Step | StepBefore | StepAfter | Basis | Cardinal | MonotoneX | CatmullRom"
     
-    (if (not (listp (first x)))
-        (setf x (list x))
-    )
-
-    (if (not (listp (first y)))
-        (setf y (list y))
-    )
-
     (if (null xmin)
-        (setf xmin "Math.min.apply(null, xdata0) - 1")
+        (setf xmin "Math.min.apply(null, xdata) - 1")
         (setf xmin (write-to-string (coerce xmin 'single-float)))
     )
 
     (if (null ymin)
-        (setf ymin "Math.min.apply(null, ydata0) - 1")
+        (setf ymin "Math.min.apply(null, ydata) - 1")
         (setf ymin (write-to-string (coerce ymin 'single-float)))
     )
 
     (if (null xmax)
-        (setf xmax "Math.max.apply(null, xdata0) + 1")
+        (setf xmax "Math.max.apply(null, xdata) + 1")
         (setf xmax (write-to-string (coerce xmax 'single-float)))
     )
 
     (if (null ymax)
-        (setf ymax "Math.max.apply(null, ydata0) + 1")
+        (setf ymax "Math.max.apply(null, ydata) + 1")
         (setf ymax (write-to-string (coerce ymax 'single-float)))
     )
 
-    ;Check lengths of line-specific variables
-    (setf scatter        (checklengths scatter           (length x)))
-    (setf line           (checklengths line              (length x)))
-    (setf size           (checklengths size              (length x)))
-    (setf linewidth      (checklengths linewidth         (length x)))
-    (setf lineopacity    (checklengths lineopacity       (length x)))
-    (setf scatteropacity (checklengths scatteropacity    (length x)))
-    (setf scattercolor   (checklengths scattercolor      (length x)))
-    (setf linecolor      (checklengths linecolor         (length x)))
-    (setf strokefill     (checklengths strokefill        (length x)))
-    (setf interpolation  (checklengths interpolation     (length x)))
+    (if line
+        (setf line "true")
+        (setf line "false")
+    )
 
-    ;;Transform line and scatter cases to string
-    (setf line (mapcar (lambda (l) (if l "true" "false")) line))
-    (setf scatter (mapcar (lambda (l) (if l "true" "false")) scatter))
-
-    ;Signal length error
-    (if (not (= (length x) (length y)))
-        (error "Y and x don't have same length")
+    (if scatter
+        (setf scatter "true")
+        (setf scatter "false")
     )
 
     (if showXaxis
@@ -123,12 +104,18 @@
                                 "<script>"
 "/*---------------------------------VARIABLES FOR LISP LOOP*/
 "
-                                    (generatevars x y :scatter scatter :line line :size size
-                                        :linewidth linewidth :lineopacity lineopacity 
-                                        :scatteropacity scatteropacity :scattercolor scattercolor
-                                        :linecolor linecolor :strokefill strokefill 
-                                        :interpolation interpolation)
-
+                                    "var xdata = "  (to_javascript_array x) ";"
+                                    "var ydata = "  (to_javascript_array y) ";"
+                                    "var scatter    = " scatter ";"
+                                    "var line       = " line ";"
+                                    "var radii          = "  (write-to-string (coerce size 'single-float)) ";"
+                                    "var linewidth      = "  (write-to-string (coerce linewidth 'single-float) ";"
+                                    "var lineopacity    = "  (write-to-string (coerce lineopacity 'single-float) ";"
+                                    "var scatteropacity = "  (write-to-string (coerce scatteropacity 'single-float) ";"
+                                    "var scattercolor   = "  (concatenate 'string "'" scattercolor "'") ";"
+                                    "var linecolor      = "  (concatenate 'string "'" linecolor "'") ";"
+                                    "var strokefill     = "  (concatenate 'string "'" strokefill "'") ";"
+                                    "var plotcurve = d3.curve" interpolation ";"                                    
 "/*---------------------------------END OF VARIABLES FOR LISP LOOP*/
 "                                    
                                     "var xlab       = "  (concatenate 'string "'" xlab "'")  ";"
@@ -252,32 +239,32 @@
                                         
 /*--------------------------------------PART THAT NEEDS TO BE IN LISP LOOP*/
                                         // Creating path using data in pathinfo and path data generator
-                                        if (line0){
+                                        if (line){
                                             
                                             // Specify the function for generating path data             
                                             var myline = d3.line()
                                                 .x(function(d){return Xscale(d);})
-                                                .y(function(d,i){return Yscale(ydata0[i]);})
-                                                .curve(plotcurve0); 
+                                                .y(function(d,i){return Yscale(ydata[i]);})
+                                                .curve(plotcurve); 
 
                                             inner.append('path')
-                                                .attr('d', myline(xdata0))
-                                                .style('stroke-width', linewidth0)
-                                                .style('stroke', linecolor0)
-                                                .style('opacity',lineopacity0)
-                                                .style('fill', strokefill0);
+                                                .attr('d', myline(xdata))
+                                                .style('stroke-width', linewidth)
+                                                .style('stroke', linecolor)
+                                                .style('opacity',lineopacity)
+                                                .style('fill', strokefill);
                                         }
 
                                         //Add points to plot
-                                        if (scatter0){
+                                        if (scatter){
                                             inner.selectAll('scatter-dots')
-                                                .data(ydata0)  // using the values in the ydata0 array
+                                                .data(ydata)  // using the values in the ydata array
                                                 .enter().append('svg:circle')  // create a new circle for each value
                                                 .attr('cy', function (d) { return Yscale(d); } ) // translate y value to a pixel
-                                                .attr('cx', function (d,i) { return Xscale(xdata0[i]); } ) // translate x value
-                                                .attr('r', radii0) // radius of circle
-                                                .style('opacity',scatteropacity0)
-                                                .style('fill', scattercolor0);
+                                                .attr('cx', function (d,i) { return Xscale(xdata[i]); } ) // translate x value
+                                                .attr('r', radii) // radius of circle
+                                                .style('opacity',scatteropacity)
+                                                .style('fill', scattercolor);
                                         }
 /*--------------------------------------END OF PART THAT NEEDS TO BE IN LISP LOOP*/
                                     </script>"
