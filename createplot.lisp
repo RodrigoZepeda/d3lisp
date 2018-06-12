@@ -4,8 +4,9 @@
                             (interpolation "Linear") (showXaxis T) (showYaxis T)
                             (axisX_label_color "black") (axisY_label_color "black")
                             (axisX_tick_color "black") (axisY_tick_color "black") (axisX_color "black")
-                            (axisY_color "black") (lineopacity 1) (scatteropacity 1) (squareplot NIL) 
-                            (save NIL) (filename "Myplot") (fileformat "png")
+                            (axisY_color "black") (lineopacity 1) (scatteropacity 1) 
+                            (outercolor "none") (innercolor "none")
+                            (squareplot NIL) (save NIL) (filename "Myplot") (fileformat "png")
                             (port 1234) (pagename (concatenate 'string "plot" (write-to-string *plotnumber*))))
 
     ;;Update plot number
@@ -29,8 +30,9 @@
                 :interpolation interpolation :showXaxis showXaxis :showYaxis showYaxis 
                 :axisX_label_color axisX_label_color :axisY_label_color axisY_label_color
                 :axisX_tick_color axisX_tick_color :axisY_tick_color axisY_tick_color :axisX_color axisX_color 
-                :axisY_color axisY_color :lineopacity lineopacity :scatteropacity scatteropacity :squareplot squareplot
-                :save save :filename filename :fileformat fileformat
+                :axisY_color axisY_color :lineopacity lineopacity :scatteropacity scatteropacity 
+                :outercolor outercolor :innercolor innercolor
+                :squareplot squareplot :save save :filename filename :fileformat fileformat
             ))) 
         hunchentoot:*dispatch-table*)
 

@@ -4,8 +4,9 @@
                             (interpolation "Linear") (showXaxis T) (showYaxis T)
                             (axisX_label_color "black") (axisY_label_color "black")
                             (axisX_tick_color "black") (axisY_tick_color "black") (axisX_color "black")
-                            (axisY_color "black") (lineopacity 1) (scatteropacity 1) (squareplot NIL)
-                            (save NIL) (filename "Myplot") (fileformat "png")
+                            (axisY_color "black") (lineopacity 1) (scatteropacity 1) 
+                            (outercolor "none") (innercolor "none")
+                            (squareplot NIL) (save NIL) (filename "Myplot") (fileformat "png")
                             )
     "Interpolations: Linear | Step | StepBefore | StepAfter | Basis | Cardinal | MonotoneX | CatmullRom"
     
@@ -93,11 +94,6 @@
                         });
                     </script>
                     <style>
-                        .outer {
-                            fill: #00ccff;;
-                            stroke: green;
-                        }
-
                         .inner {
                             fill: rgb(18, 202, 141);
                             stroke: #000;
@@ -150,6 +146,8 @@
                                     "var axisY_tick_color   = " (concatenate 'string "'" axisY_tick_color "'") ";"
                                     "var plotcurve = d3.curve" interpolation ";"
                                     "var squareplot = " squareplot ";"
+                                    "var outercolor = " (concatenate 'string "'" outercolor "'") ";"
+                                    "var innercolor = " (concatenate 'string "'" innercolor "'") ";"
                                     
                                 "</script>"
     "                           <!-- D3JS script for plotting-->
@@ -177,23 +175,19 @@
                                                         .attr('height', outerHeight);  
 
                                         //Rectangles for debugging
-                                        if (background){
-                                            outer.append('rect')
-                                                .attr('class', 'outer')
-                                                .attr('width', innerWidth)
-                                                .attr('height', innerHeight);  
-                                        };
-
+                                        outer.append('rect')
+                                               .attr('fill', outercolor)
+                                               .attr('width', innerWidth)
+                                               .attr('height', innerHeight);  
+                                        
                                         var inner = outer.append('g')
                                                         .attr('transform', 'translate(' + padding.left + ',' + padding.top + ')');    
                                         
                                         //Rectangles for debugging
-                                        if(background){
-                                            inner.append('rect')
+                                        inner.append('rect')
+                                            .attr('fill', innercolor)
                                             .attr('width', width)
-                                            .attr('height', height)
-                                            .attr('class', 'inner');
-                                        };
+                                            .attr('height', height);
 
                                         //X.axis
                                         Xscale = d3.scaleLinear()

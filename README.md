@@ -14,7 +14,7 @@ Setup
 
 One you have installed and set up a directory with all the files, in SBCL:
 
-    (setf *default-pathname-defaults* (truename "path/to/project"))
+    (setf *default-pathname-defaults* (truename "/Users/insp/Dropbox/UNAM_POSGRADO/CALC SIMB/proyecto/lispplot/"))
 
 Load `setup.lisp` to set up the functions:
 
