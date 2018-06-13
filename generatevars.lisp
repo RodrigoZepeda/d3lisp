@@ -36,8 +36,6 @@
     )
 )
 
-;(generatevars (list (list 1 2) (list 3 4))  (list (list 1 2) (list 3 4)))
-
 (defun checklengths (mylist n)
     (if (not (listp mylist))
         (setf mylist (list mylist))
@@ -48,4 +46,83 @@
     )
 )
 
-;(checklengths (list 1 2 3 4) 10)
+(defun generate-lines (n)
+    (let ((javascript_string "") (ichar ""))
+        (loop for i from 0 to (1- n)
+            do (progn
+                (setf ichar (write-to-string i))
+                (setf javascript_string 
+                    (concatenate 'string javascript_string
+                        "
+                        // Creating path using data in pathinfo and path data generator
+                        if (line" ichar "){
+                            
+                            // Specify the function for generating path data             
+                            var myline = d3.line()
+                                .x(function(d){return Xscale(d);})
+                                .y(function(d,i){return Yscale(ydata" ichar "[i]);})
+                                .curve(plotcurve" ichar "); 
+
+                            inner.append('path')
+                                .attr('d', myline(xdata" ichar "))
+                                .style('stroke-width', linewidth" ichar ")
+                                .style('stroke', linecolor" ichar ")
+                                .style('opacity',lineopacity" ichar ")
+                                .style('fill', strokefill" ichar");
+                        }
+                        "
+                    )
+                )
+            )
+        )
+        javascript_string
+    )
+)
+
+(defun generate-scatters (n)
+    (let ((javascript_string "") (ichar ""))
+        (loop for i from 0 to (1- n)
+            do (progn
+                (setf ichar (write-to-string i))
+                (setf javascript_string 
+                    (concatenate 'string javascript_string
+                        "
+                        if (scatter" ichar "){
+                                        inner.selectAll('scatter-dots')
+                                            .data(ydata" ichar ")  // using the values in the ydata0 array
+                                            .enter().append('svg:circle')  // create a new circle for each value
+                                            .attr('cy', function (d) { return Yscale(d); } ) // translate y value to a pixel
+                                            .attr('cx', function (d,i) { return Xscale(xdata0[i]); } ) // translate x value
+                                            .attr('r', radii" ichar ") // radius of circle
+                                            .style('opacity',scatteropacity" ichar ")
+                                            .style('fill', scattercolor" ichar ");
+                                    }
+                        "
+                    )
+                )
+            )
+        )
+        javascript_string
+    )
+)
+
+(defun generate-annotations (annotations)
+    (if (not (listp (first annotations)))
+        (setf annotations (list annotations))
+    )
+    (let ((javascript_string ""))
+        (if (not (null annotations))
+            (loop for i from 0 to (1- (length annotations))
+                do (progn
+                    (setf javascript_string (concatenate 'string javascript_string 
+                        "inner.append('text').text('"(first (nth i annotations)) "')
+                                            .attr('x', Xscale(" (write-to-string (coerce (second (nth i annotations)) 'single-float)) "))
+                                            .attr('y', Yscale(" (write-to-string (coerce (third (nth i annotations)) 'single-float)) "));
+                        "
+                    ))
+                )
+            )
+        )
+        javascript_string
+    )
+)
