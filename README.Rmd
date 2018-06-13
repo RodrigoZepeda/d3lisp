@@ -31,13 +31,15 @@ Load `setup.lisp` to set up the functions:
 
 The function for creating the plots is `createplot`. Here, for example, we plot the sine function:
 ```
-(setq x (list (* -1 pi)  (/ (* -1 pi) 2) (/ (* -1 pi) 4) (/ (* -1 pi) 8) 0 (/ pi 8) (/ pi 4) (/ pi 2) pi))
-(setq y (mapcar #'sin x))
-(createplot x y :title "Sine function" :xlab "x" :ylab "sin(x)" :interpolation "MonotoneX")
+(setq x (list 0 0.5 1 1.5 2 2.5 3 3.5 4 4.5 5))
+(setq y (mapcar #'exp x))
+(createplot x y :title "Exponential"  :squareplot T  :title-fontsize 100 :margin (list 10 10 10 10)
+    :padding (list 150 30 60 60) :xlab "x" :ylab "exp(x)" :interpolation "MonotoneX"
+)
 ```
 
 Which results in the following image:
 <center>
-![Sine function example](sine.svg)
+<img src="sine.svg">
 </center>
 
