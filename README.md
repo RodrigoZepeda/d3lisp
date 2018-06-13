@@ -39,4 +39,4 @@ Which results in the following image:
 <center>
 <img src="./examples/exponential.svg">
 </center>
-You can see additional examples on the example website: <https://rodrigozepeda.github.io/d3lisp/index.html>.
+You can see additional examples on the [example website](https://rodrigozepeda.github.io/d3lisp/index.html).
