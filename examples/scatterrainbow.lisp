@@ -1,7 +1,7 @@
 ;;Simulates 1000 points assigning each a different color
 (setf n 2000) ;;Number of points in simulation
-(setf x     (mapcar (lambda (x) (list (random 1.0))) (make-list n)))
-(setf y     (mapcar (lambda (x) (list (random 1.0))) (make-list n)))
+(setf x     (mapcar (lambda (x) (list (1- (random 2.0)))) (make-list n)))
+(setf y     (mapcar (lambda (x) (list (1- (random 2.0)))) (make-list n)))
 (setf color 
     (mapcar 
         (lambda (x) 
