@@ -1,20 +1,26 @@
 ---
-title: "Examples of d3lisp"
+title: ""
 author: ""
 date: ""
 output:
   html_document: 
       toc: true
       highlight: null
-      css: webpage/vs2015.css
+      css: webpage/atom-one-light.css
       toc_float: true
+      toc_depth: 3
 ---
 
 <!--html_preserve-->
+<div style = "text-align:center;">
+  <img src="examples/logo.svg" width = "25%;">
+  <h1>D3LISP</h1>
+</div>
 <script src="webpage/highlight.pack.js"></script>
 <script> hljs.initHighlightingOnLoad(); </script>
-<style>pre.language-lisp {background-color: #1E1E1E;}</style>
+<style>pre.language-lisp {background-color: #fafafa;}</style>
 <!--/html_preserve-->
+
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -79,12 +85,46 @@ knitr::knit_engines$set(clisp = function ( options ) {
 })
 ```
 
-##Example plots
+#Installation
+<!-- html_preserve -->
+<!--<div class = "alert alert-info">
+Click aquí para ir a versión en ESPAÑOL
+</div>-->
+<!-- /html_preserve -->
 
-###Simple example
+
+**d3lisp** is a [d3js](https://d3js.org/) interface for creating plots in LISP. To run it you need to: 
+
+1. Install [quicklisp](https://www.quicklisp.org/beta/)
+2. Use quicklisp to install [hunchentoot](https://edicl.github.io/hunchentoot/) (see here for [SBCL installation on Mac](https://medium.com/@m2k/web-server-on-mac-os-x-via-common-lisp-prism-6e94ef178c1c))
+3. Have a browser and a persistent Internet connection
+
+One you have installed and set up a directory with all the files, in SBCL:
+```{clisp, eval = FALSE}
+(setf *default-pathname-defaults* (truename "path/to/project"))
+```
+
+Load `setup.lisp` to set up the functions:
+```{clisp, eval = FALSE}
+(load "setup.lisp")
+```
 
 <!-- html_preserve -->
-<div style = "text-align; center">
+<div class = "alert alert-danger">
+Currently **d3lisp** only runs fully on Mac. You can use it on another platform by commenting line 54:
+<pre style = "background-color: transparent; border-color: white;"><code style = "background-color: transparent;">(uiop:run-program 
+    (concatenate 'string "open http://localhost:" (write-to-string port) "/" pagename))</code></pre>
+</div>
+<!-- /html_preserve -->
+
+#Examples for getting started
+
+##Simple example
+
+The basic function is `createplot` which uses as input two lists of same length representing each coordinate: `x` and `y`. Title and axis labels can be adjusted using the keywords `title`, `xlab` and `ylab` respectively. 
+
+<!-- html_preserve -->
+<div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/simple.svg">
 </div>
 <!-- /html_preserve -->
@@ -98,33 +138,12 @@ knitr::knit_engines$set(clisp = function ( options ) {
                 :ylab "Number of extra parentheses in my life")
 ```
 
-###Exponential
+##Scatter
+
+To create a scatter plot you can set `line` to `NIL` for the plot not to do lines. The `scattercolor` allows for different color options. 
 
 <!-- html_preserve -->
-<div style = "text-align; center">
-<img src="./examples/exponential.svg">
-</div>
-<!-- /html_preserve -->
-
-```{clisp, eval = FALSE}
-;Exponential example using linspace
-(setq x (list 0 0.5 1 1.5 2 2.5 3 3.5 4 4.5 5))
-(setq y (mapcar #'exp x))
-(createplot x y 
-    :title "Exponential"  
-    :squareplot T  
-    :title-fontsize 100 :margin (list 10 10 10 10)
-    :padding (list 150 30 60 60) 
-    :xlab "x" :ylab "exp(x)" 
-    :interpolation "MonotoneX"
-    :scattercolor "red" :linecolor "black"
-)
-```
-
-###Scatter
-
-<!-- html_preserve -->
-<div style = "text-align; center">
+<div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/simplescatterplot.svg">
 </div>
 <!-- /html_preserve -->
@@ -142,10 +161,45 @@ knitr::knit_engines$set(clisp = function ( options ) {
   :scattercolor "purple")
 ```
 
-###Closed curves
+##Exponential
+
+The `scattercolor` and `linecolor` commands allow for color changes (can be inputed in text, HEX or rgb). The `title-fontsize` allows for changing the size of plot title while `squareplot` forces the plot to be of square form (not rectangle of window size). The `padding` option controls the inner margin size and allows for the giant title to remain inside plot. We'll get back to [`interpolation`](##interpolation) in another example. 
 
 <!-- html_preserve -->
-<div style = "text-align; center">
+<div style = "text-align: center; background-color: transparent;" class = "well">
+<img src="./examples/exponential.svg">
+</div>
+<!-- /html_preserve -->
+
+```{clisp, eval = FALSE}
+;Exponential example using linspace
+(setq x (list 0 0.5 1 1.5 2 2.5 3 3.5 4 4.5 5))
+(setq y (mapcar #'exp x))
+(createplot x y 
+    :title "Exponential"  
+    :title-fontsize 100 
+    :squareplot T
+    :padding (list 150 30 60 60) 
+    :xlab "x" :ylab "exp(x)" 
+    :interpolation "MonotoneX"
+    :scattercolor "red" :linecolor "black"
+)
+```
+
+##Closed curves
+
+You can create closed curves by inputing in order the vertices. In this example the package's command `ngon` generates the $x,y$ coordinates of a regular $n$-gon with radius (distance from center to vertex) $r = 3$ and $k = 5$ vertices (pentagon) centered at $(2,3)$. 
+
+```{clisp, eval = FALSE}
+(ngon 5 :r 3 :center (list 2 3))
+```
+
+Additional curves programmed in the code are available in [a following section](###curve_museum).
+
+The `strokefill` keywords establishes the fill color of the figure. Axes can be deleted by setting `showXaxis` and `showYaxis` to `NIL`. 
+
+<!-- html_preserve -->
+<div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/pentagon.svg">
 </div>
 <!-- /html_preserve -->
@@ -156,18 +210,22 @@ knitr::knit_engines$set(clisp = function ( options ) {
 (setq y (second (ngon 5)))
 (createplot x y 
   :title "Pentagon" 
-  :squareplot T :strokefill "#47476b" 
+  :squareplot T 
+  :strokefill "#47476b" 
   :linecolor "black"
   :padding (list 75 75 60 60)
   :title-fontsize 50
-  :scatter NIL :squareplot T :showXaxis NIL :showYaxis NIL 
+  :scatter NIL :squareplot T 
+  :showXaxis NIL :showYaxis NIL 
   :save T :svgname "pentagon")
 ```
 
-###Multiple plots
+##Multiple figures
+
+You can add multiple figures in one plot. To do so, the `x` and `y` parameters must be lists of lists (it is LISP after all!) where each of the list components of `x` (resp. `y`) represents the `x` coordinates (resp. `y`) of a figure. Additional parameters such as `interpolation` or `interpolation` can be specified as usual (`:interpolation "CatmullRom"` sets `CatmullRom` interpolation for all curves) or as a list of choices `:linecolor   (list "tomato" "steelblue")` sets the line color for the first figure as `tomato` and for the second one as `steelblue`. 
 
 <!-- html_preserve -->
-<div style = "text-align; center">
+<div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/plot2things.svg">
 </div>
 <!-- /html_preserve -->
@@ -181,19 +239,31 @@ knitr::knit_engines$set(clisp = function ( options ) {
                 :scatter NIL
                 :interpolation "CatmullRom"
                 :linecolor   (list "tomato" "steelblue") 
-                :annotations (list (list "cos(x)" (/ (* 3 pi) 2) -1.1) (list "sin(x)" pi -1.1))
+                :annotations (list 
+                                (list "cos(x)" (/ (* 3 pi) 2) -1.1) 
+                                (list "sin(x)" pi -1.1))
                 :annotations-color (list "tomato" "steelblue") 
                 :annotations-fontsize 15)
 ```
 
-##Plot options
+In the previous code we added annotations. Annotations work as lists of lists. Each annotation (that is, each final list) is composed of three parts:
 
-###Interpolation
+```{clisp, eval = FALSE}
+("Text of annotation" x-coordinate y-coordinate)
+```
+
+Thus `(list "sin(x)" pi -1.1)` writes `sin(x)` at point $(\pi, -1.1)$. The annotations options: `annotations-color` and `annotations-fontsize` work the same as the `linecolor` parameters. You can either choose a value to set for all (`:annotations-fontsize 15` sets all annotations in size `15`) or specify one value for each annotation, `:annotations-color (list "tomato" "steelblue")` sets the first one in `tomato` color and the second in `steelblue`. 
+
+#Plot options
+
+##Interpolation
 <!-- html_preserve -->
-<div style = "text-align; center">
+<div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/interpolation.svg">
 </div>
 <!-- /html_preserve -->
+
+There are several functions for interpolating the plotted points. All of these follow the **d3js** standard. Details for each curve can be found in the [D3 wiki](https://github.com/d3/d3-shape/blob/master/README.md#curves). 
 
 ```{clisp, eval = FALSE}
 ;Interpolation examples
@@ -202,7 +272,7 @@ knitr::knit_engines$set(clisp = function ( options ) {
 (createplot x y 
     :title "Interpolation examples" :xlab "x" :ylab "sin"
     :interpolation (list "Linear" "Step" "StepBefore" "StepAfter" 
-                    "Basis" "Cardinal" "MonotoneX" "CatmullRom")
+                          "Basis" "Cardinal" "MonotoneX" "CatmullRom")
     :annotations  (list (list "Linear"      1 -1.1) 
                         (list "Step"        2 -1.1) 
                         (list "StepBefore"  3 -1.1) 
@@ -211,18 +281,20 @@ knitr::knit_engines$set(clisp = function ( options ) {
                         (list "Cardinal"    6 -1.1) 
                         (list "MonotoneX"   7 -1.1)
                         (list "CatmullRom"  8 -1.1))
-    :annotations-color (list "red" "blue" "green" "orange" "steelblue" "purple" "pink" "Gray")
-    :linecolor (list "red" "blue" "green" "orange" "steelblue" "purple" "pink" "Gray")
+    :annotations-color  (list "red" "blue" "green" "orange" 
+                              "steelblue" "purple" "pink" "Gray")
+    :linecolor (list "red" "blue" "green" "orange" 
+                      "steelblue" "purple" "pink" "Gray")
     :lineopacity 0.5
     :scattercolor "black"
     :scatter T
 )
 ```
 
-###All options
+##All options
 
 <!-- html_preserve -->
-<div style = "text-align; center">
+<div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/advancedoptions.svg">
 </div>
 <!-- /html_preserve -->
@@ -240,7 +312,7 @@ knitr::knit_engines$set(clisp = function ( options ) {
     :xmax 7                     ;;Maximum of x for plot
     :ymin -4                    ;;Minimum of y for plot
     :ymax 5                     ;;Maximum of y for plot
-    :scattercolor "orange"     ;;Color for points can be HEX or colorname
+    :scattercolor "orange"      ;;Color for points can be HEX or colorname
     :linecolor    "#00bfff"     ;;Color for line can be HEX or colorname 
     :linewidth 5                ;;Width of line 
     :strokefill "none"          ;;Choose a color for closed curves (fills between lines in curve) 
@@ -276,11 +348,13 @@ knitr::knit_engines$set(clisp = function ( options ) {
 )
 ```
 
-##Advanced plots
+#Advanced plots
 
-###Pythagorean theorem
+In this section, several examples of plots are presented alongside their code. 
+
+##Pythagorean theorem
 <!-- html_preserve -->
-<div style = "text-align; center">
+<div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/pythagoras.svg">
 </div>
 <!-- /html_preserve -->
@@ -320,10 +394,17 @@ knitr::knit_engines$set(clisp = function ( options ) {
 (setf square2x (list 13 17 17 13 13))
 (setf square2y (list 3 3 7 7 3))
 
-(setf x (list triangle1x triangle2x triangle3x triangle4x triangle5x triangle6x triangle7x triangle8x square0x square1x square2x))
-(setf y (list triangle1y triangle2y triangle3y triangle4y triangle5y triangle6y triangle7y triangle8y square0y square1y square2y))
-(setf color (list "#0d370d" "#0d370d" "#0d370d" "#0d370d" "#0d370d" "#0d370d" "#0d370d" "#0d370d" "#00bfff	" "#00bfff" "#00bfff"))
-(setf annotations (list 
+(setf x (list triangle1x triangle2x triangle3x 
+              triangle4x triangle5x triangle6x 
+              triangle7x triangle8x square0x square1x square2x))
+(setf y (list triangle1y triangle2y triangle3y
+              triangle4y triangle5y triangle6y
+              triangle7y triangle8y square0y square1y square2y))
+(setf color (list "#0d370d" "#0d370d" "#0d370d" "#0d370d" 
+                  "#0d370d" "#0d370d" "#0d370d" "#0d370d" 
+                  "#00bfff	" "#00bfff" "#00bfff"))
+(setf annotations 
+  (list 
     (list "2" 8.15 3.65)
     (list "2" 8.6 3.65)
     (list "2" 9.05 3.65)
@@ -346,7 +427,7 @@ knitr::knit_engines$set(clisp = function ( options ) {
     (list "b" 13.2 5)
     (list "b" 16.8 5)
     (list "c = a + b" 8.5 3.5)
-)
+  )
 )
 (setf annotationcolor (make-list (length annotations) :initial-element "white"))
 (setf annotationsize  (make-list (length annotations) :initial-element 14))
@@ -377,9 +458,9 @@ knitr::knit_engines$set(clisp = function ( options ) {
     :squareplot NIL)
 ```
 
-###Multiple regular polygons
+##Multiple regular polygons
 <!-- html_preserve -->
-<div style = "text-align; center">
+<div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/polygonmuseum.svg">
 </div>
 <!-- /html_preserve -->
@@ -424,7 +505,10 @@ knitr::knit_engines$set(clisp = function ( options ) {
 (createplot (list x1 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12) 
             (list y1 y3 y4 y5 y6 y7 y8 y9 y10 y11 y12) 
             :title "Regular poligons museum" :scatter T
-            :linecolor (list "#ffa190" "#ff917e" "#ff826b" "#ff7259" "#ff6347" "#e5593f" "#cc4f38" "#b24531" "#993b2a" "#7f3123" "#66271c")
+            :linecolor (list  "#ffa190" "#ff917e" "#ff826b" 
+                              "#ff7259" "#ff6347" "#e5593f" 
+                              "#cc4f38" "#b24531" "#993b2a" 
+                              "#7f3123" "#66271c")
             :size 4
             :title-fontsize 25
             :title-color "white"
@@ -440,7 +524,7 @@ knitr::knit_engines$set(clisp = function ( options ) {
 
 ###50 shades of gray
 <!-- html_preserve -->
-<div style = "text-align; center">
+<div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/shadesofgray.svg">
 </div>
 <!-- /html_preserve -->
@@ -456,10 +540,18 @@ knitr::knit_engines$set(clisp = function ( options ) {
     (loop for i from 0 to (1- n)
         do (progn 
                 (if (= (mod i 5) 0) (incf k))
-                (setf (nth i x) (list (+ 3 (- (mod i 5) 0.5)) (+ 3 (- (mod i 5) 0.5)) (+ 3 (+ (mod i 5) 0.5)) (+ 3 (+ (mod i 5) 0.5)) (+ 3 (- (mod i 5) 0.5))))
-                (setf (nth i y) (list (- k 0.5) (+ k 0.5) (+ k 0.5) (- k 0.5) (- k 0.5)))
+                (setf (nth i x) 
+                    (list (+ 3 (- (mod i 5) 0.5))
+                          (+ 3 (- (mod i 5) 0.5)) 
+                          (+ 3 (+ (mod i 5) 0.5)) 
+                          (+ 3 (+ (mod i 5) 0.5)) 
+                          (+ 3 (- (mod i 5) 0.5))))
+                (setf (nth i y) 
+                    (list (- k 0.5) (+ k 0.5) (+ k 0.5) (- k 0.5) (- k 0.5)))
                 (setf currentstep (write-to-string (truncate (* i mystep))))
-                (setf (nth i color) (concatenate 'string "rgb(" currentstep "," currentstep "," currentstep ")"))
+                (setf (nth i color) 
+                    (concatenate 'string 
+                        "rgb(" currentstep "," currentstep "," currentstep ")"))
                 (setf (nth i colname) (list (nth i color) (+ 3 (mod i 5)) k))
             )
     )
@@ -484,7 +576,7 @@ knitr::knit_engines$set(clisp = function ( options ) {
 
 ###Scatter specifying color, size and transparency for each point
 <!-- html_preserve -->
-<div style = "text-align; center">
+<div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/scatterrainbow.svg">
 </div>
 <!-- /html_preserve -->
@@ -515,63 +607,111 @@ knitr::knit_engines$set(clisp = function ( options ) {
 ```
 
 ###Curve museum
+
+The following curves are all implemented for plotting in the package. 
+
 <!-- html_preserve -->
-<div style = "text-align; center">
+<div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/curvemuseum.svg">
 </div>
 <!-- /html_preserve -->
 
 ```{clisp, eval = FALSE}
 ;Creation of curve museum
-(setq x1 (first  (hipocycloid 3 1  :center (list -15 10) :angle-points (linspace 0 (* 2 pi) :lengthout 1000))))
-(setq y1 (second (hipocycloid 3 1  :center (list -15 10) :angle-points (linspace 0 (* 2 pi) :lengthout 1000))))
+
+;Deltoid
+(setq x1 (first  
+          (hipocycloid 3 1  :center (list -15 10) 
+                            :angle-points (linspace 0 (* 2 pi) :lengthout 1000))))
+(setq y1 (second 
+          (hipocycloid 3 1  :center (list -15 10) 
+                            :angle-points (linspace 0 (* 2 pi) :lengthout 1000))))
 (setf a1 (list "Deltoid" -15 3))
 
-(setq x2 (first  (hipocycloid 3 (/ 3 4)  :center (list 0 10) :angle-points (linspace 0 (* 2 pi) :lengthout 1000))))
-(setq y2 (second (hipocycloid 3 (/ 3 4)  :center (list 0 10) :angle-points (linspace 0 (* 2 pi) :lengthout 1000))))
+;Astroid
+(setq x2 (first  
+          (hipocycloid 3 (/ 3 4) :center (list 0 10) 
+                                 :angle-points (linspace 0 (* 2 pi) :lengthout 1000))))
+(setq y2 (second 
+          (hipocycloid 3 (/ 3 4) :center (list 0 10) 
+                                 :angle-points (linspace 0 (* 2 pi) :lengthout 1000))))
 (setf a2 (list "Astroid" 0 3))
 
-(setq x3 (first  (hipocycloid 4.1 1.1 :center (list 15 10) :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
-(setq y3 (second (hipocycloid 4.1 1.1 :center (list 15 10) :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
+;General Hipocycloid
+(setq x3 (first  
+          (hipocycloid 4.1 1.1 :center (list 15 10) 
+                               :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
+(setq y3 (second 
+          (hipocycloid 4.1 1.1 :center (list 15 10) 
+                               :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
 (setf a3 (list "Hipocycloid" 15 3))
 
-(setq x4 (first  (epicycloid 1 1 :center (list -15 25) :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
-(setq y4 (second (epicycloid 1 1 :center (list -15 25) :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
+;Cardioid
+(setq x4 (first  (epicycloid 1 1 :center (list -15 25) 
+                                 :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
+(setq y4 (second (epicycloid 1 1 :center (list -15 25) 
+                                 :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
 (setf a4 (list "Cardioid" -15 17))
 
-(setq x5 (first  (epicycloid 2 1 :center (list 0 25) :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
-(setq y5 (second (epicycloid 2 1 :center (list 0 25) :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
+;Nephroid
+(setq x5 (first  (epicycloid 2 1 :center (list 0 25) 
+                                 :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
+(setq y5 (second (epicycloid 2 1 :center (list 0 25) 
+                                 :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
 (setf a5 (list "Nephroid" 0 17))
 
-(setq x6 (first  (epicycloid 2.1 1.1 :center (list 15 25) :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
-(setq y6 (second (epicycloid 2.1 1.1 :center (list 15 25) :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
+;Epicycloid
+(setq x6 (first  (epicycloid 2.1 1.1 :center (list 15 25) 
+                                     :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
+(setq y6 (second (epicycloid 2.1 1.1 :center (list 15 25) 
+                                     :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
 (setf a6 (list "Epicycloid" 15 17))
 
-(setq x7 (first  (involute 0.1 :center (list -15 40) :angle-points (linspace 0 (* 10 pi) :lengthout 1000))))
-(setq y7 (second (involute 0.1 :center (list -15 40) :angle-points (linspace 0 (* 10 pi) :lengthout 1000))))
+;Involute of circle
+(setq x7 (first  (involute 0.1 :center (list -15 40) 
+                               :angle-points (linspace 0 (* 10 pi) :lengthout 1000))))
+(setq y7 (second (involute 0.1 :center (list -15 40) 
+                               :angle-points (linspace 0 (* 10 pi) :lengthout 1000))))
 (setf a7 (list "Involute" -15 34))
 
+;Bicorn
 (setq x8 (first  (bicorn 4 :center (list 0 38))))
 (setq y8 (second (bicorn 4 :center (list 0 38))))
 (setf a8 (list "Bicorn" 0 34))
 
-(setq x9 (first  (archimedes 0.1 :center (list 15 40) :angle-points (linspace 0 (* 10 pi) :lengthout 1000))))
-(setq y9 (second (archimedes 0.1 :center (list 15 40) :angle-points (linspace 0 (* 10 pi) :lengthout 1000))))
+;Archimedes spiral
+(setq x9 (first  
+          (archimedes 0.1 :center (list 15 40) 
+                          :angle-points (linspace 0 (* 10 pi) :lengthout 1000))))
+(setq y9 (second 
+          (archimedes 0.1 :center (list 15 40) 
+                          :angle-points (linspace 0 (* 10 pi) :lengthout 1000))))
 (setf a9 (list "Archimedes spiral" 15 34))
 
-(setq x10 (first  (epitrochoid 2.1 1.1  :d 1.5 :center (list -15 55) :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
-(setq y10 (second (epitrochoid 2.1 1.1  :d 1.5 :center (list -15 55) :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
+;General Epitrochoid
+(setq x10 (first  
+           (epitrochoid 2.1 1.1  :d 1.5 :center (list -15 55) 
+                :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
+(setq y10 (second 
+           (epitrochoid 2.1 1.1  :d 1.5 :center (list -15 55) 
+                :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
 (setf a10 (list "Epitrochoid" -15 47))
 
+;Circle
 (setq x11 (first  (ngon 100 :r 3 :center (list 0 55))))
 (setq y11 (second (ngon 100 :r 3 :center (list 0 55))))
 (setf a11 (list "Circle" 0 47))
 
-(setq x12 (first  (hipotrochoid 3.1 1.1  :d 1.5 :center (list 15 55) :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
-(setq y12 (second (hipotrochoid 3.1 1.1  :d 1.5 :center (list 15 55) :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
+;General Hipotrochoid
+(setq x12 (first  
+           (hipotrochoid 3.1 1.1  :d 1.5 :center (list 15 55) 
+                  :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
+(setq y12 (second 
+           (hipotrochoid 3.1 1.1  :d 1.5 :center (list 15 55) 
+                  :angle-points (linspace 0 (* 50 pi) :lengthout 1000))))
 (setf a12 (list "Hipotrochoid" 15 47))
 
-;Creation of epicicloid
+;Plot of the curve museum
 (createplot (list x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12) 
             (list y1 y2 y3 y4 y5 y6 y7 y8 y9 y10 y11 y12) 
             :title "Curve museum" :scatter NIL

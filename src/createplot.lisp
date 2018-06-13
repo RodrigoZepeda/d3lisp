@@ -48,6 +48,10 @@
         hunchentoot:*dispatch-table*)
 
     ;;Open browser to run program
-    (uiop:run-program (concatenate 'string "open http://localhost:" (write-to-string port) "/" pagename))
+    ;;COMMENT THIS IF NOT ON MAC OR NOT ON SBCL IF THIS IS THE CASE, OPEN YOUR BROWSER MANUALLY AND GO TO
+    ;;localhost port / pagename (default is localhost:1234/plot#number_of_plots_since_started). Example,
+    ;;for second plot it is found in http://localhost:1234/plot2
+    (uiop:run-program 
+        (concatenate 'string "open http://localhost:" (write-to-string port) "/" pagename))
 
 )
