@@ -111,7 +111,7 @@ Load `setup.lisp` to set up the functions:
 
 <!-- html_preserve -->
 <div class = "alert alert-danger">
-Currently **d3lisp** only runs fully on Mac. You can use it on another platform by commenting (or deleting) line 54 of **createplot.lisp**:
+Currently **d3lisp** only runs fully on Mac with an SBCL implementation. You can use it on another platform by commenting (or deleting) line 54 of **createplot.lisp**:
 <pre style = "background-color: transparent; border-color: white;"><code style = "background-color: transparent;">(uiop:run-program 
     (concatenate 'string "open http://localhost:" (write-to-string port) "/" pagename))</code></pre>
 </div>

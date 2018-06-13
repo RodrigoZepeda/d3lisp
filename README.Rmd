@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 2. Use quicklisp to install [hunchentoot](https://edicl.github.io/hunchentoot/) (see here for [SBCL installation on Mac](https://medium.com/@m2k/web-server-on-mac-os-x-via-common-lisp-prism-6e94ef178c1c))
 3. Have a browser and a persistent Internet connection
 
-> Currently **d3lisp** only runs on Mac
+> Currently **d3lisp** only runs on Mac with SBCL
 
 One you have installed and set up a directory with all the files, in SBCL:
 ```
