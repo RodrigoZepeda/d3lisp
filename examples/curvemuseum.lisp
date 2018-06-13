@@ -1,4 +1,4 @@
-;Creation of deltoid
+;Creation of curve museum
 (setq x1 (first  (hipocycloid 3 1  :center (list -15 10) :angle-points (linspace 0 (* 2 pi) :lengthout 1000))))
 (setq y1 (second (hipocycloid 3 1  :center (list -15 10) :angle-points (linspace 0 (* 2 pi) :lengthout 1000))))
 (setf a1 (list "Deltoid" -15 3))

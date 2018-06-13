@@ -1,3 +1,4 @@
+;;Polygon museum
 (setq x1 (list 0))
 (setq y1 (list 0))
 

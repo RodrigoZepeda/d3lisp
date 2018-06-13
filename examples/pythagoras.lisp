@@ -1,4 +1,4 @@
-
+;;Pythagorean theorem representation
 (setf triangle1x (list 0 4 0 0))
 (setf triangle1y (list 0 0 3 0))
 
@@ -83,6 +83,7 @@
     :annotations-color annotationcolor
     :annotations-fontsize  annotationsize
     :xmin 0 :xmax 17
-    :ymin -10 :ymax 7
-    :plotheight 1000
-    :squareplot T)
+    :ymin 0 :ymax 8
+    :plotheight 500
+    :plotwidth 1000
+    :squareplot NIL)
