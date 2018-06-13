@@ -5,7 +5,9 @@
                             (axisX_label_color "black") (axisY_label_color "black")
                             (axisX_tick_color "black") (axisY_tick_color "black") (axisX_color "black")
                             (axisY_color "black") (lineopacity 1) (scatteropacity 1) 
-                            (outercolor "none") (innercolor "none")
+                            (yaxispos NIL) (xaxispos NIL)
+                            (plotheight "default") (plotwidth "default")
+                            (outercolor "none") (innercolor "none") (annotations NIL) 
                             (squareplot NIL) (save NIL) (filename "Myplot") (fileformat "png")
                             (port 1234) (pagename (concatenate 'string "plot" (write-to-string *plotnumber*))))
 
@@ -31,7 +33,9 @@
                 :axisX_label_color axisX_label_color :axisY_label_color axisY_label_color
                 :axisX_tick_color axisX_tick_color :axisY_tick_color axisY_tick_color :axisX_color axisX_color 
                 :axisY_color axisY_color :lineopacity lineopacity :scatteropacity scatteropacity 
-                :outercolor outercolor :innercolor innercolor
+                :xaxispos xaxispos :yaxispos yaxispos
+                :plotheight plotheight :plotwidth plotwidth
+                :outercolor outercolor :innercolor innercolor :annotations annotations
                 :squareplot squareplot :save save :filename filename :fileformat fileformat
             ))) 
         hunchentoot:*dispatch-table*)

@@ -5,83 +5,39 @@
                             (axisX_label_color "black") (axisY_label_color "black")
                             (axisX_tick_color "black") (axisY_tick_color "black") (axisX_color "black")
                             (axisY_color "black") (lineopacity 1) (scatteropacity 1) 
-                            (yaxispos NIL) (xaxispos NIL)
-                            (plotheight "default") (plotwidth "default")
-                            (outercolor "none") (innercolor "none") (annotations NIL) 
+                            (outercolor "none") (innercolor "none")
                             (squareplot NIL) (save NIL) (filename "Myplot") (fileformat "png")
                             )
     "Interpolations: Linear | Step | StepBefore | StepAfter | Basis | Cardinal | MonotoneX | CatmullRom"
     
-    (if (not (listp (first x)))
-        (setf x (list x))
-    )
-
-    (if (not (listp (first y)))
-        (setf y (list y))
-    )
-
     (if (null xmin)
-        (setf xmin (1- (apply #'min  (apply #'mapcar #'min x))))
+        (setf xmin "Math.min.apply(null, xdata) - 1")
+        (setf xmin (write-to-string (coerce xmin 'single-float)))
     )
 
     (if (null ymin)
-        (setf ymin (1- (apply #'min (apply #'mapcar #'min y))))
+        (setf ymin "Math.min.apply(null, ydata) - 1")
+        (setf ymin (write-to-string (coerce ymin 'single-float)))
     )
 
     (if (null xmax)
-        (setf xmax (1+ (apply #'max (apply #'mapcar #'max x))))
+        (setf xmax "Math.max.apply(null, xdata) + 1")
+        (setf xmax (write-to-string (coerce xmax 'single-float)))
     )
 
     (if (null ymax)
-        (setf ymax (1+ (apply #'max (apply #'mapcar #'max y))))
+        (setf ymax "Math.max.apply(null, ydata) + 1")
+        (setf ymax (write-to-string (coerce ymax 'single-float)))
     )
 
-    (if (null yaxispos)
-        (if (or (< xmax 0) (> xmin 0))
-            (setf yaxispos xmin)
-            (setf yaxispos 0)
-        )
+    (if line
+        (setf line "true")
+        (setf line "false")
     )
 
-    (if (null xaxispos)
-        (if (or (< ymax 0) (> ymin 0))
-            (setf xaxispos ymin)
-            (setf xaxispos 0)
-        )
-    )
-
-    (if (not (stringp plotheight)) (setf plotheight (write-to-string (coerce plotheight 'single-float))))
-    (if (not (stringp plotwidth)) (setf plotwidth (write-to-string (coerce plotwidth 'single-float))))
-
-    (if (string= plotheight "default")
-        (setf plotheight "0.9*Math.max(document.documentElement['clientHeight'], document.body['scrollHeight'], document.documentElement['scrollHeight'], document.body['offsetHeight'], document.documentElement['offsetHeight'])")
-        (setf plotheight (concatenate 'string "'" plotheight "'"))
-    )
-
-    (if (string= plotwidth "default")
-        (setf plotwidth "0.9*Math.max(document.documentElement['clientWidth'], document.body['scrollWidth'], document.documentElement['scrollWidth'], document.body['offsetWidth'], document.documentElement['offsetWidth'])")
-        (setf plotwidth (concatenate 'string "'" plotwidth "'"))
-    )
-
-    ;Check lengths of line-specific variables
-    (setf scatter        (checklengths scatter           (length x)))
-    (setf line           (checklengths line              (length x)))
-    (setf size           (checklengths size              (length x)))
-    (setf linewidth      (checklengths linewidth         (length x)))
-    (setf lineopacity    (checklengths lineopacity       (length x)))
-    (setf scatteropacity (checklengths scatteropacity    (length x)))
-    (setf scattercolor   (checklengths scattercolor      (length x)))
-    (setf linecolor      (checklengths linecolor         (length x)))
-    (setf strokefill     (checklengths strokefill        (length x)))
-    (setf interpolation  (checklengths interpolation     (length x)))
-
-    ;;Transform line and scatter cases to string
-    (setf line (mapcar (lambda (l) (if l "true" "false")) line))
-    (setf scatter (mapcar (lambda (l) (if l "true" "false")) scatter))
-
-    ;Signal length error
-    (if (not (= (length x) (length y)))
-        (error "Y and x don't have same length")
+    (if scatter
+        (setf scatter "true")
+        (setf scatter "false")
     )
 
     (if showXaxis
@@ -148,12 +104,18 @@
                                 "<script>"
 "/*---------------------------------VARIABLES FOR LISP LOOP*/
 "
-                                    (generatevars x y :scatter scatter :line line :size size
-                                        :linewidth linewidth :lineopacity lineopacity 
-                                        :scatteropacity scatteropacity :scattercolor scattercolor
-                                        :linecolor linecolor :strokefill strokefill 
-                                        :interpolation interpolation)
-
+                                    "var xdata = "  (to_javascript_array x) ";"
+                                    "var ydata = "  (to_javascript_array y) ";"
+                                    "var scatter    = " scatter ";"
+                                    "var line       = " line ";"
+                                    "var radii          = "  (write-to-string (coerce size 'single-float)) ";"
+                                    "var linewidth      = "  (write-to-string (coerce linewidth 'single-float) ";"
+                                    "var lineopacity    = "  (write-to-string (coerce lineopacity 'single-float) ";"
+                                    "var scatteropacity = "  (write-to-string (coerce scatteropacity 'single-float) ";"
+                                    "var scattercolor   = "  (concatenate 'string "'" scattercolor "'") ";"
+                                    "var linecolor      = "  (concatenate 'string "'" linecolor "'") ";"
+                                    "var strokefill     = "  (concatenate 'string "'" strokefill "'") ";"
+                                    "var plotcurve = d3.curve" interpolation ";"                                    
 "/*---------------------------------END OF VARIABLES FOR LISP LOOP*/
 "                                    
                                     "var xlab       = "  (concatenate 'string "'" xlab "'")  ";"
@@ -161,12 +123,10 @@
                                     "var title      = "  (concatenate 'string "'" title "'") ";"
                                     "var fileformat = "  (concatenate 'string "'" fileformat "'") ";"
                                     "var filename   = "  (concatenate 'string "'" filename "." fileformat "'") ";"
-                                    "var xmin       = "  (write-to-string (coerce xmin 'single-float))  ";"
-                                    "var xmax       = "  (write-to-string (coerce xmax 'single-float))  ";"
-                                    "var ymin       = "  (write-to-string (coerce ymin 'single-float))  ";"
-                                    "var ymax       = "  (write-to-string (coerce ymax 'single-float))  ";"
-                                    "var xaxispos   = "  (write-to-string (coerce xaxispos 'single-float)) ";"
-                                    "var yaxispos   = "  (write-to-string (coerce yaxispos 'single-float)) ";"
+                                    "var xmin       = "  xmin ";"
+                                    "var xmax       = "  xmax ";"
+                                    "var ymin       = "  ymin ";"
+                                    "var ymax       = "  ymax ";"
                                     "var showXaxis  = "  showXaxis ";"
                                     "var showYaxis  = "  showYaxis ";"
                                     "var save       = "  save ";"
@@ -179,8 +139,6 @@
                                     "var axisY_tick_color   = " (concatenate 'string "'" axisY_tick_color "'") ";"
                                     "var outercolor         = " (concatenate 'string "'" outercolor "'") ";"
                                     "var innercolor         = " (concatenate 'string "'" innercolor "'") ";" 
-                                    "var outerHeight = " plotheight ";"
-                                    "var outerWidth  = " plotwidth ";"
                                 "</script>"
     "                           <!-- D3JS script for plotting-->
                                 <script>
@@ -188,9 +146,12 @@
                                             padding = {top: 30, right: 30, bottom: 60, left: 60};
 
                                         if (squareplot){
-                                            outerHeight  = Math.min(outerHeight, outerWidth);
-                                            outerWidth   = Math.min(outerHeight, outerWidth);
-                                        } 
+                                            var outerHeight  = 0.9*Math.min(Math.max(document.documentElement['clientHeight'], document.body['scrollHeight'], document.documentElement['scrollHeight'], document.body['offsetHeight'], document.documentElement['offsetHeight']), Math.max(document.documentElement['clientWidth'], document.body['scrollWidth'], document.documentElement['scrollWidth'], document.body['offsetWidth'], document.documentElement['offsetWidth'])), 
+                                                outerWidth   = outerHeight;
+                                        } else {
+                                            var outerHeight  = 0.9*Math.max(document.documentElement['clientHeight'], document.body['scrollHeight'], document.documentElement['scrollHeight'], document.body['offsetHeight'], document.documentElement['offsetHeight']), 
+                                                outerWidth   = 0.9*Math.max(document.documentElement['clientWidth'], document.body['scrollWidth'], document.documentElement['scrollWidth'], document.body['offsetWidth'], document.documentElement['offsetWidth']);
+                                        }
 
                                         var innerWidth   = outerWidth  - margin.left  - margin.right,
                                             innerHeight  = outerHeight - margin.top   - margin.bottom,
@@ -239,7 +200,8 @@
 
                                         if (showXaxis){
                                             axisX  = inner.append('g')
-                                                            .attr('transform', 'translate(' + 0 + ',' + Yscale(xaxispos) + ')')
+                                                            .attr('transform', 'translate(' + 0 + ',' + height + ')')
+                                                            .attr('id','xaxis')
                                                             .style('stroke', axisX_label_color)
                                                             .call(d3.axisBottom(Xscale));   
 
@@ -257,7 +219,8 @@
 
                                         if (showYaxis){
                                             axisY = inner.append('g')
-                                                            .attr('transform', 'translate(' + Xscale(yaxispos) + ',' + 0 + ')')
+                                                            .attr('transform', 'translate(' + 0 + ',' + 0 + ')')
+                                                            .attr('id','yaxis')
                                                             .style('stroke', axisY_label_color)
                                                             .call(d3.axisLeft(Yscale)); 
 
@@ -274,11 +237,35 @@
                                                 .text(ylab); 
                                         }
                                         
-/*--------------------------------------PART THAT NEEDS TO BE IN LISP LOOP*/"
-                                        (generate-lines (length x))
-                                        (generate-scatters (length x))
-                                        (generate-annotations annotations)
-"
+/*--------------------------------------PART THAT NEEDS TO BE IN LISP LOOP*/
+                                        // Creating path using data in pathinfo and path data generator
+                                        if (line){
+                                            
+                                            // Specify the function for generating path data             
+                                            var myline = d3.line()
+                                                .x(function(d){return Xscale(d);})
+                                                .y(function(d,i){return Yscale(ydata[i]);})
+                                                .curve(plotcurve); 
+
+                                            inner.append('path')
+                                                .attr('d', myline(xdata))
+                                                .style('stroke-width', linewidth)
+                                                .style('stroke', linecolor)
+                                                .style('opacity',lineopacity)
+                                                .style('fill', strokefill);
+                                        }
+
+                                        //Add points to plot
+                                        if (scatter){
+                                            inner.selectAll('scatter-dots')
+                                                .data(ydata)  // using the values in the ydata array
+                                                .enter().append('svg:circle')  // create a new circle for each value
+                                                .attr('cy', function (d) { return Yscale(d); } ) // translate y value to a pixel
+                                                .attr('cx', function (d,i) { return Xscale(xdata[i]); } ) // translate x value
+                                                .attr('r', radii) // radius of circle
+                                                .style('opacity',scatteropacity)
+                                                .style('fill', scattercolor);
+                                        }
 /*--------------------------------------END OF PART THAT NEEDS TO BE IN LISP LOOP*/
                                     </script>"
                                     "<!-- SCRIPT FOR SAVING; ADAPTED FROM http://bl.ocks.org/Rokotyan/0556f8facbaf344507cdc45dc3622177-->
