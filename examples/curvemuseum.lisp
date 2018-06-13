@@ -56,6 +56,6 @@
             :annotations (list a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12)
             :padding (list 50 30 50 30)
             :xmin -30 :xmax 30 :ymin 5 :ymax 60
-            :linecolor "steelblue"
+            :linecolor "darkmagenta"
             :squareplot T :interpolation "CatmullRom" 
             :showXaxis NIL :showYaxis NIL :squareplot T)

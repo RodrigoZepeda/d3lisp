@@ -92,7 +92,7 @@
                                             .data(ydata" ichar ")  // using the values in the ydata0 array
                                             .enter().append('svg:circle')  // create a new circle for each value
                                             .attr('cy', function (d) { return Yscale(d); } ) // translate y value to a pixel
-                                            .attr('cx', function (d,i) { return Xscale(xdata0[i]); } ) // translate x value
+                                            .attr('cx', function (d,i) { return Xscale(xdata" ichar "[i]); } ) // translate x value
                                             .attr('r', radii" ichar ") // radius of circle
                                             .style('opacity',scatteropacity" ichar ")
                                             .style('fill', scattercolor" ichar ");
