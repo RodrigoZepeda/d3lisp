@@ -30,5 +30,6 @@ The function for creating the plots is `createplot`. Here, for example, we plot 
     (createplot x y :title "Sine function" :xlab "x" :ylab "sin(x)" :interpolation "MonotoneX")
 
 Which results in the following image:
-
-![Sine function example](sine.png)
+<center>
+![Sine function example](sine.svg)
+</center>

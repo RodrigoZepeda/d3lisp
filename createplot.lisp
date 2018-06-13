@@ -8,7 +8,10 @@
                             (yaxispos NIL) (xaxispos NIL)
                             (plotheight "default") (plotwidth "default")
                             (outercolor "none") (innercolor "none") (annotations NIL) 
-                            (squareplot NIL) (save NIL) (filename "Myplot") (fileformat "png")
+                            (annotations-color "black") (annotations-fontsize 12) 
+                            (title-fontsize 18)
+                            (margin (list 10 10 10 10)) (padding (list 30 30 60 60))
+                            (squareplot NIL) (save NIL) (svgname "Myplot") 
                             (port 1234) (pagename (concatenate 'string "plot" (write-to-string *plotnumber*))))
 
     ;;Update plot number
@@ -36,7 +39,10 @@
                 :xaxispos xaxispos :yaxispos yaxispos
                 :plotheight plotheight :plotwidth plotwidth
                 :outercolor outercolor :innercolor innercolor :annotations annotations
-                :squareplot squareplot :save save :filename filename :fileformat fileformat
+                :annotations-color annotations-color :annotations-fontsize annotations-fontsize
+                :title-fontsize title-fontsize
+                :margin margin :padding padding
+                :squareplot squareplot :save save :svgname svgname 
             ))) 
         hunchentoot:*dispatch-table*)
 

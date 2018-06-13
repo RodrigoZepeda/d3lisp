@@ -106,18 +106,30 @@
     )
 )
 
-(defun generate-annotations (annotations)
+(defun generate-annotations (annotations &key (annotations-color NIL) (annotations-fontsize NIL))
+    
     (if (not (listp (first annotations)))
         (setf annotations (list annotations))
     )
+    (if (null annotations-color)
+        (setf annotations-color (make-list (length annotations) :initial-element "black"))
+    )
+    (if (null annotations-fontsize)
+        (setf annotations-fontsize (make-list (length annotations) :initial-element 12))
+    )
+
     (let ((javascript_string ""))
         (if (not (null annotations))
             (loop for i from 0 to (1- (length annotations))
                 do (progn
                     (setf javascript_string (concatenate 'string javascript_string 
-                        "inner.append('text').text('"(first (nth i annotations)) "')
-                                            .attr('x', Xscale(" (write-to-string (coerce (second (nth i annotations)) 'single-float)) "))
-                                            .attr('y', Yscale(" (write-to-string (coerce (third (nth i annotations)) 'single-float)) "));
+                        "var annotate" (write-to-string i) " = inner.append('text')
+                                            .text('"(first (nth i annotations)) "')
+                                            .attr('fill'," (concatenate 'string "'" (nth i annotations-color) "'") ")
+                                            .style('font-size'," (write-to-string (coerce  (nth i annotations-fontsize) 'single-float)) ")
+                                            .style('font-family', 'sans-serif')
+                                            .attr('x', Xscale("  (write-to-string (coerce (second (nth i annotations)) 'single-float)) "))
+                                            .attr('y', Yscale("  (write-to-string (coerce (third (nth i annotations)) 'single-float)) "));
                         "
                     ))
                 )

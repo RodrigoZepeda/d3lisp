@@ -1,4 +1,5 @@
-
+(setf *default-pathname-defaults* (truename "/Users/insp/Dropbox/UNAM_POSGRADO/CALC SIMB/proyecto/lispplot/"))
+(load "setup.lisp")
 
 ;Para evitar errores en sbcl
 (defvar x NIL)
@@ -10,15 +11,18 @@
 (createplot x y :title "Mi gráfica cool" :xlab "Etiqueta x" :ylab "Etiqueta y")
 
 ;Ejemplo de uso de linspace
-(setq x (linspace 2 10))
+(setq x (list 0 1 2 3 4 5))
 (setq y (mapcar #'exp x))
-(createplot x y :title "Exponencial"  :squareplot T :plotheight 500 :plotwidth 500)
+(createplot x y :title "Exponential"  :squareplot T  :title-fontsize 100 :margin (list 10 10 10 10)
+    :padding (list 150 30 60 60) :xlab "x" :ylab "exp(x)" :interpolation "MonotoneX"
+)
 
 ;Gráfica doble
 (setq x (list (linspace 0 10) (linspace 0 10)))
 (setq y (list (mapcar #'sin (first x)) (mapcar #'cos (second x))))
 (createplot x y :title "My favourite trigonometric functions"  :squareplot NIL :scatter (list NIL NIL) 
-                :linecolor (list "red" "blue") :annotations (list (list "cos" pi -1) (list "sin" (/ pi 2) 1)))
+                :linecolor (list "red" "blue") :annotations (list (list "cos" pi -1) (list "sin" (/ pi 2) 1))
+                :annotations-fontsize 15)
 
 ;Ejemplo de interpolación
 (setq x (list (* -1 pi)  (/ (* -1 pi) 2) (/ (* -1 pi) 4) (/ (* -1 pi) 8) 0 (/ pi 8) (/ pi 4) (/ pi 2) pi))
@@ -45,8 +49,6 @@
 (setq x (list (first  (ngon 5 :center (list -2 1))) (first (ngon 10 :center (list 1 1)))))
 (setq y (list (second (ngon 5 :center (list -2 1))) (second (ngon 10 :center (list 1 1)))))
 (createplot x y :title "ngon"  :scatter NIL :squareplot T :xmin -3 :xmax 3 :ymin -3 :ymax 3)
-
-
 
 ;Poligon options
 (setq x (first (ngon 5)))
