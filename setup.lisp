@@ -9,6 +9,3 @@
 (load "createplot.lisp")
 (load "linspace.lisp")
 (load "curveexamples.lisp")
-
-
-

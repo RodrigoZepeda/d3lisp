@@ -5,15 +5,15 @@
                             (axisX_label_color "black") (axisY_label_color "black")
                             (axisX_tick_color "black") (axisY_tick_color "black") (axisX_color "black")
                             (axisY_color "black") (lineopacity 1) (scatteropacity 1) 
-                            (yaxispos NIL) (xaxispos NIL)
+                            (yaxispos NIL) (xaxispos NIL) 
                             (plotheight "default") (plotwidth "default")
                             (outercolor "none") (innercolor "none") (annotations NIL)
                             (annotations-color "black") (annotations-fontsize 12) 
-                            (title-fontsize 18)
+                            (title-fontsize 18) (title-color "black")
                             (margin (list 10 10 10 10)) (padding (list 30 30 60 60))
                             (squareplot NIL) (save NIL) (svgname "Myplot") 
+                            (plotnum 1)
                             )
-    "Interpolations: Linear | Step | StepBefore | StepAfter | Basis | Cardinal | MonotoneX | CatmullRom"
     
     (if (not (listp (first x)))
         (setf x (list x))
@@ -119,6 +119,8 @@
         <!DOCTYPE html>
         <html lang='en'>
             <head>
+                    <title>Plot " (write-to-string plotnum) "</title>
+
                     <meta charset = 'utf-8'>
                     <meta name='viewport' content='width=device-width, initial-scale=1'>
                     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -178,6 +180,7 @@
                                     "var outercolor         = " (concatenate 'string "'" outercolor "'") ";"
                                     "var innercolor         = " (concatenate 'string "'" innercolor "'") ";" 
                                     "var titlefontsize      = " (write-to-string (coerce title-fontsize 'single-float)) ";"
+                                    "var titlecolor         = " "'" title-color "'" ";"
                                     "var outerHeight = " plotheight ";"
                                     "var outerWidth  = " plotwidth ";"
                                     "var margin  = {top:"    (write-to-string (coerce (nth 0 margin) 'single-float)) ",
@@ -242,12 +245,13 @@
                                                 .style('font-size', titlefontsize)
                                                 .style('font-family', 'sans-serif') 
                                                 .style('font-weight', 'bold')  
+                                                .attr('fill', titlecolor)
                                                 .text(title);
 
                                         if (showXaxis){
                                             axisX  = inner.append('g')
                                                             .attr('transform', 'translate(' + 0 + ',' + Yscale(xaxispos) + ')')
-                                                            .style('stroke', axisX_label_color)
+                                                            .style('stroke', axisX_tick_color)
                                                             .call(d3.axisBottom(Xscale));   
 
                                             axisX.selectAll('line').style('stroke', axisX_tick_color);             
@@ -256,9 +260,10 @@
                                             //Create X axis label
                                             outer.append('text')
                                                 .attr('x', innerWidth / 2 )
-                                                .attr('y',  innerHeight)
+                                                .attr('y',  innerHeight - padding.top/2)
                                                 .style('text-anchor', 'middle')
-                                                .style('font-family', 'sans-serif') 
+                                                .style('font-family', 'sans-serif')
+                                                .style('fill', axisX_label_color) 
                                                 .text(xlab);
 
                                         }
@@ -266,7 +271,7 @@
                                         if (showYaxis){
                                             axisY = inner.append('g')
                                                         .attr('transform', 'translate(' + Xscale(yaxispos) + ',' + 0 + ')')
-                                                        .style('stroke', axisY_label_color)
+                                                        .style('stroke', axisX_tick_color)
                                                         .call(d3.axisLeft(Yscale)); 
 
                                             axisY.selectAll('line').style('stroke', axisY_tick_color);
@@ -280,9 +285,12 @@
                                                 .attr('dy', '1em')
                                                 .style('text-anchor', 'middle')
                                                 .style('font-family', 'sans-serif')
+                                                .style('fill', axisY_label_color)
                                                 .text(ylab); 
                                         }
+
                                         d3.selectAll('.tick > text').style('font-weight','lighter');
+
 /*--------------------------------------PART THAT NEEDS TO BE IN LISP LOOP*/"
                                         (generate-lines (length x))
                                         (generate-scatters (length x))
