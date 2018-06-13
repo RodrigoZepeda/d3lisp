@@ -32,4 +32,6 @@ The function for creating the plots is `createplot`. Here, for example, we plot 
     )
 
 Which results in the following image:
+<div style="text-align:center">
 <img src="sine.svg">
+</div>
