@@ -87,13 +87,13 @@ knitr::knit_engines$set(clisp = function ( options ) {
 
 #Installation
 <!-- html_preserve -->
-<!--<div class = "alert alert-info">
+<!--<a href = "index-es.html"><div class = "alert alert-info">
 Click aquí para ir a versión en ESPAÑOL
-</div>-->
+</div></a>-->
 <!-- /html_preserve -->
 
 
-**d3lisp** is a [d3js](https://d3js.org/) interface for creating plots in LISP. To run it you need to: 
+**d3lisp** is a [d3js](https://d3js.org/) interface for creating plots in Common LISP. To run it you need to: 
 
 1. Install [quicklisp](https://www.quicklisp.org/beta/)
 2. Use quicklisp to install [hunchentoot](https://edicl.github.io/hunchentoot/) (see here for [SBCL installation on Mac](https://medium.com/@m2k/web-server-on-mac-os-x-via-common-lisp-prism-6e94ef178c1c))
@@ -111,7 +111,7 @@ Load `setup.lisp` to set up the functions:
 
 <!-- html_preserve -->
 <div class = "alert alert-danger">
-Currently **d3lisp** only runs fully on Mac. You can use it on another platform by commenting line 54:
+Currently **d3lisp** only runs fully on Mac. You can use it on another platform by commenting (or deleting) line 54 of **createplot.lisp**:
 <pre style = "background-color: transparent; border-color: white;"><code style = "background-color: transparent;">(uiop:run-program 
     (concatenate 'string "open http://localhost:" (write-to-string port) "/" pagename))</code></pre>
 </div>
@@ -163,7 +163,7 @@ To create a scatter plot you can set `line` to `NIL` for the plot not to do line
 
 ##Exponential
 
-The `scattercolor` and `linecolor` commands allow for color changes (can be inputed in text, HEX or rgb). The `title-fontsize` allows for changing the size of plot title while `squareplot` forces the plot to be of square form (not rectangle of window size). The `padding` option controls the inner margin size and allows for the giant title to remain inside plot. We'll get back to [`interpolation`](##interpolation) in another example. 
+The `scattercolor` and `linecolor` commands allow for color changes (can be inputed in text, HEX or rgb). The `title-fontsize` allows for changing the size of plot title while `squareplot` forces the plot to be of square form (not rectangle of window size). The `padding` option controls the inner margin size and allows for the giant title to remain inside plot. We'll get back to [`interpolation`](#interpolation) in another example. 
 
 <!-- html_preserve -->
 <div style = "text-align: center; background-color: transparent;" class = "well">
@@ -522,7 +522,7 @@ In this section, several examples of plots are presented alongside their code.
             :showXaxis NIL :showYaxis NIL :squareplot T)
 ```
 
-###50 shades of gray
+##50 shades of gray
 <!-- html_preserve -->
 <div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/shadesofgray.svg">
@@ -574,7 +574,7 @@ In this section, several examples of plots are presented alongside their code.
         :strokefill color)
 ```
 
-###Scatter specifying color, size and transparency for each point
+##Scatter specifying color, size and transparency for each point
 <!-- html_preserve -->
 <div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/scatterrainbow.svg">
@@ -606,7 +606,7 @@ In this section, several examples of plots are presented alongside their code.
         :scatteropacity 0.5 :scattercolor color :size sizes)
 ```
 
-###Curve museum
+##Curve museum
 
 The following curves are all implemented for plotting in the package. 
 
