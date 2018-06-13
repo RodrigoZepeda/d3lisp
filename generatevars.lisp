@@ -128,6 +128,7 @@
                                             .attr('fill'," (concatenate 'string "'" (nth i annotations-color) "'") ")
                                             .style('font-size'," (write-to-string (coerce  (nth i annotations-fontsize) 'single-float)) ")
                                             .style('font-family', 'sans-serif')
+                                            .attr('text-anchor', 'middle')  
                                             .attr('x', Xscale("  (write-to-string (coerce (second (nth i annotations)) 'single-float)) "))
                                             .attr('y', Yscale("  (write-to-string (coerce (third (nth i annotations)) 'single-float)) "));
                         "

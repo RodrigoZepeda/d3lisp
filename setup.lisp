@@ -8,8 +8,7 @@
 (load "htmlcode.lisp")
 (load "createplot.lisp")
 (load "linspace.lisp")
-(load "ngon.lisp")
-(load "hipotrochoid.lisp")
+(load "curveexamples.lisp")
 
 
 
