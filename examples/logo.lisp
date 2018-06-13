@@ -12,10 +12,10 @@
     :title ""
     :showXaxis NIL
     :linewidth (list 3 10 5)
-    :linecolor (list "purple" "white" "#4E004E")
+    :linecolor (list "purple" "black" "#4E004E")
     :annotations (list "d3lisp" 0 -0.2)
     :annotations-fontsize 35
-    :annotations-color "white"
+    :annotations-color "black"
     :squareplot T
     :scatter NIL
     :showYaxis NIL
