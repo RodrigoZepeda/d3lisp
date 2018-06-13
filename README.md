@@ -31,5 +31,5 @@ The function for creating the plots is `createplot`. Here, for example, we plot 
 
 Which results in the following image:
 <center>
-![Sine function example](sine.svg)
+<img src="sine.svg">
 </center>
