@@ -1,0 +1,99 @@
+---
+title: "Examples of d3lisp"
+author: ""
+date: ""
+output:
+  html_document: 
+      toc: true
+      highlight: null
+      css: webpage/vs2015.css
+      toc_float: true
+---
+
+<!--html_preserve-->
+<script src="webpage/highlight.pack.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<style>pre.language-lisp {background-color: #1E1E1E;}</style>
+<!--/html_preserve-->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(class.source = "language-r myclass")
+knitr::opts_chunk$set(class.output = "language-r myclass")
+knitr::opts_chunk$set(comment = NA)
+knitr::opts_chunk$set(deletable = 1:18)
+
+linkpage <- function (text, link){
+  #Function that assigns internal link (link) to text
+  #INPUT  
+  #  > link: internal Hugo link
+  #  > text: text to which link is assigned
+  #OUTPUT: html snippet that references said link in text
+  
+  paste0('<a href=', link, '><span>',text, '</span></a>')
+}
+```
+
+```{r, eval = TRUE, echo = FALSE}
+knitr::knit_engines$set(clisp = function ( options ) {
+  
+  ##Searches for LISP in system
+  cmd = Sys.which( 'clisp' )
+  
+  #If CLISP not found return error
+  if ( options$eval ){
+    
+    #Check for a CLISP installation
+    if (cmd == ""){ stop("ERROR: Cannot find CLISP installation")}  #This will quit knitr
+    
+    #Try running CLISP; else throw error
+    clisp_res <- tryCatch({
+       
+       #Run CLISP from terminal
+       clisp_res <- system2("clisp", input = options$code, stdout = T, stderr = T, env = options$engine.env)
+       
+       #Delete CLISP salutation and goodbye
+       if (!any(is.na(options$deletable))){ clisp_res <- clisp_res[-c(options$deletable, length(clisp_res))]} 
+       
+     },
+       error = function ( e ) {
+         clisp_res <- paste('ERROR. The following error ocurred when executing CLISP code:\n', e)
+       }
+     )
+    
+  } else {
+    clisp_res <- NULL
+  }
+ 
+  #Hide results if knitr option set to hide
+  if ( options$results == 'hide' ) {clisp_res <- NULL}
+   
+  #Options for printing the results without #
+  options$comment = NA
+  options$class.output = "language-lisp myclass"
+  options$class.source = "language-lisp myclass"
+  
+  #Output to knitr
+  knitr::engine_output(options, options$code, clisp_res)
+
+})
+```
+
+##Simple example
+
+<!-- html_preserve -->
+<div style = "text-align; center">
+<img src="./examples/simple.svg">
+</div>
+<!-- /html_preserve -->
+
+
+##Exponential
+
+<!-- html_preserve -->
+<center>
+<img src="./examples/exponential.svg">
+</center>
+<!-- /html_preserve -->
+
+
