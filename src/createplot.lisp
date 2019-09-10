@@ -12,7 +12,6 @@
                             (title-fontsize 18) (title-color "black")
                             (margin (list 10 10 10 10)) (padding (list 30 30 60 60))
                             (squareplot NIL) (save NIL) (svgname "Myplot")
-                            (pagename (concatenate 'string "plot" (write-to-string *plotnumber*)))
                             (filename "Myplot"))
 
     ;;Update plot number
