@@ -76,6 +76,9 @@ follows:
                           :filename "MyFirstPlot")
     )
 
+The plot is saved to a file called `MyFirstPlot.html` in your current
+directory.
+
 You can see additional examples on the [example
 website](https://rodrigozepeda.github.io/d3lisp/index.html) .
 

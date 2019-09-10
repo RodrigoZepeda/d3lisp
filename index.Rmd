@@ -128,6 +128,8 @@ An example, assuming `d3lisp` is in `Desktop` is as follows:
 )
 ```
 
+The plot is saved to a file called `MyFirstPlot.html` in your current directory. 
+
 <!-- html_preserve -->
 <div class = "alert alert-danger">
 Currently **d3lisp** has been tested in the following LISP versions:
