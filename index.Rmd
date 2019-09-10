@@ -85,7 +85,7 @@ knitr::knit_engines$set(clisp = function ( options ) {
 })
 ```
 
-#Installation
+# Installation
 <!-- html_preserve -->
 <!--<a href = "index-es.html"><div class = "alert alert-info">
 Click aquí para ir a versión en ESPAÑOL
@@ -95,31 +95,29 @@ Click aquí para ir a versión en ESPAÑOL
 
 **d3lisp** is a [d3js](https://d3js.org/) interface for creating plots in Common LISP. To run it you need to: 
 
-1. Install [quicklisp](https://www.quicklisp.org/beta/)
-2. Use quicklisp to install [hunchentoot](https://edicl.github.io/hunchentoot/) (see here for [SBCL installation on Mac](https://medium.com/@m2k/web-server-on-mac-os-x-via-common-lisp-prism-6e94ef178c1c))
-3. Have a browser and a persistent Internet connection
-
-One you have installed and set up a directory with all the files, in SBCL:
+1. Download the project (either `git clone https://github.com/RodrigoZepeda/d3lisp/` or click on `Download` button). We will call the directory where the project kept as `"path/to/project"`.
+2. (Optional) Set up a directory with all the files, in LISP:
 ```{clisp, eval = FALSE}
-(setf *default-pathname-defaults* (truename "path/to/project"))
+(setf *default-pathname-defaults* (truename "path/to/project/src"))
 ```
-
-Load `setup.lisp` to set up the functions:
+3. Load `setup.lisp` to set up the functions:
 ```{clisp, eval = FALSE}
 (load "setup.lisp")
-```
+``` 
 
 <!-- html_preserve -->
 <div class = "alert alert-danger">
-Currently **d3lisp** only runs fully on Mac with an SBCL implementation. You can use it on another platform by commenting (or deleting) line 54 of **createplot.lisp**:
-<pre style = "background-color: transparent; border-color: white;"><code style = "background-color: transparent;">(uiop:run-program 
-    (concatenate 'string "open http://localhost:" (write-to-string port) "/" pagename))</code></pre>
+Currently **d3lisp** has been tested in the following LISP versions:
+<ul>
+<li> CLISP </li>
+<li> SBCL </li>
+</ul>
 </div>
 <!-- /html_preserve -->
 
-#Examples for getting started
+# Examples for getting started
 
-##Simple example
+## Simple example
 
 The basic function is `createplot` which uses as input two lists of same length representing each coordinate: `x` and `y`. Title and axis labels can be adjusted using the keywords `title`, `xlab` and `ylab` respectively. 
 
@@ -138,7 +136,7 @@ The basic function is `createplot` which uses as input two lists of same length 
                 :ylab "Number of extra parentheses in my life")
 ```
 
-##Scatter
+## Scatter
 
 To create a scatter plot you can set `line` to `NIL` for the plot not to do lines. The `scattercolor` allows for different color options. 
 
@@ -161,7 +159,7 @@ To create a scatter plot you can set `line` to `NIL` for the plot not to do line
   :scattercolor "purple")
 ```
 
-##Exponential
+## Exponential
 
 The `scattercolor` and `linecolor` commands allow for color changes (can be inputed in text, HEX or rgb). The `title-fontsize` allows for changing the size of plot title while `squareplot` forces the plot to be of square form (not rectangle of window size). The `padding` option controls the inner margin size and allows for the giant title to remain inside plot. We'll get back to [`interpolation`](#interpolation) in another example. 
 
@@ -186,7 +184,7 @@ The `scattercolor` and `linecolor` commands allow for color changes (can be inpu
 )
 ```
 
-##Closed curves
+## Closed curves
 
 You can create closed curves by inputing in order the vertices. In this example the package's command `ngon` generates the $x,y$ coordinates of a regular $n$-gon with radius (distance from center to vertex) $r = 3$ and $k = 5$ vertices (pentagon) centered at $(2,3)$. 
 
@@ -220,7 +218,7 @@ The `strokefill` keywords establishes the fill color of the figure. Axes can be 
   :save T :svgname "pentagon")
 ```
 
-##Multiple figures
+## Multiple figures
 
 You can add multiple figures in one plot. To do so, the `x` and `y` parameters must be lists of lists (it is LISP after all!) where each of the list components of `x` (resp. `y`) represents the `x` coordinates (resp. `y`) of a figure. Additional parameters such as `interpolation` or `interpolation` can be specified as usual (`:interpolation "CatmullRom"` sets `CatmullRom` interpolation for all curves) or as a list of choices `:linecolor   (list "tomato" "steelblue")` sets the line color for the first figure as `tomato` and for the second one as `steelblue`. 
 
@@ -254,9 +252,9 @@ In the previous code we added annotations. Annotations work as lists of lists. E
 
 Thus `(list "sin(x)" pi -1.1)` writes `sin(x)` at point $(\pi, -1.1)$. The annotations options: `annotations-color` and `annotations-fontsize` work the same as the `linecolor` parameters. You can either choose a value to set for all (`:annotations-fontsize 15` sets all annotations in size `15`) or specify one value for each annotation, `:annotations-color (list "tomato" "steelblue")` sets the first one in `tomato` color and the second in `steelblue`. 
 
-#Plot options
+# Plot options
 
-##Interpolation
+## Interpolation
 <!-- html_preserve -->
 <div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/interpolation.svg">
@@ -291,7 +289,7 @@ There are several functions for interpolating the plotted points. All of these f
 )
 ```
 
-##All options
+## All options
 
 <!-- html_preserve -->
 <div style = "text-align: center; background-color: transparent;" class = "well">
@@ -344,15 +342,16 @@ There are several functions for interpolating the plotted points. All of these f
     :padding (list 60 30 60 30) ;;Margin for inner. Order: top, right, bottom, left
     :squareplot T               ;;Force plot to be of square form 
     :save T                     ;;Save plot when generated 
-    :svgname "advancedoptions"  ;;Filename 
+    :svgname "advancedoptions"  ;;Filename when clicking save
+    :filename "AdvancedPlot"    ;;HTML file name
 )
 ```
 
-#Advanced plots
+# Advanced plots
 
 In this section, several examples of plots are presented alongside their code. 
 
-##Pythagorean theorem
+## Pythagorean theorem
 <!-- html_preserve -->
 <div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/pythagoras.svg">
@@ -458,7 +457,7 @@ In this section, several examples of plots are presented alongside their code.
     :squareplot NIL)
 ```
 
-##Multiple regular polygons
+## Multiple regular polygons
 <!-- html_preserve -->
 <div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/polygonmuseum.svg">
@@ -522,7 +521,7 @@ In this section, several examples of plots are presented alongside their code.
             :showXaxis NIL :showYaxis NIL :squareplot T)
 ```
 
-##50 shades of gray
+## 50 shades of gray
 <!-- html_preserve -->
 <div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/shadesofgray.svg">
@@ -574,7 +573,7 @@ In this section, several examples of plots are presented alongside their code.
         :strokefill color)
 ```
 
-##Scatter specifying color, size and transparency for each point
+## Scatter specifying color, size and transparency for each point
 <!-- html_preserve -->
 <div style = "text-align: center; background-color: transparent;" class = "well">
 <img src="./examples/scatterrainbow.svg">
@@ -606,7 +605,7 @@ In this section, several examples of plots are presented alongside their code.
         :scatteropacity 0.5 :scattercolor color :size sizes)
 ```
 
-##Curve museum
+## Curve museum
 
 The following curves are all implemented for plotting in the package. 
 
