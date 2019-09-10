@@ -1567,6 +1567,26 @@ Click aquí para ir a versión en ESPAÑOL
 <li>Load <code>setup.lisp</code> to set up the functions:</li>
 </ol>
 <pre class="clisp language-lisp myclass"><code>(load &quot;setup.lisp&quot;)</code></pre>
+<p>An example, assuming <code>d3lisp</code> is in <code>Desktop</code> is as follows:</p>
+<pre><code>;;Set directory to functions
+(setf *default-pathname-defaults* (truename &quot;~/Desktop/d3lisp/src&quot;))
+
+;;Load functions
+(load &quot;setup.lisp&quot;)
+
+;;Create plot
+(let* (
+        (x (list 0 0.5 1 1.5 2 2.5 3 3.5 4 4.5 5))
+        (y (mapcar #'exp x))
+      )
+      (createplot x y :title &quot;Exponential&quot;  :squareplot T  
+                      :title-fontsize 100 
+                      :margin (list 10 10 10 10)
+                      :padding (list 150 30 60 60) 
+                      :xlab &quot;x&quot; :ylab &quot;exp(x)&quot; 
+                      :interpolation &quot;MonotoneX&quot;
+                      :filename &quot;MyFirstPlot&quot;)
+)</code></pre>
 <!-- html_preserve -->
 <div class="alert alert-danger">
 Currently <strong>d3lisp</strong> has been tested in the following LISP versions:

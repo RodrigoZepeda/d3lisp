@@ -105,6 +105,29 @@ Click aquí para ir a versión en ESPAÑOL
 (load "setup.lisp")
 ``` 
 
+An example, assuming `d3lisp` is in `Desktop` is as follows:
+```
+;;Set directory to functions
+(setf *default-pathname-defaults* (truename "~/Desktop/d3lisp/src"))
+
+;;Load functions
+(load "setup.lisp")
+
+;;Create plot
+(let* (
+        (x (list 0 0.5 1 1.5 2 2.5 3 3.5 4 4.5 5))
+        (y (mapcar #'exp x))
+      )
+      (createplot x y :title "Exponential"  :squareplot T  
+                      :title-fontsize 100 
+                      :margin (list 10 10 10 10)
+                      :padding (list 150 30 60 60) 
+                      :xlab "x" :ylab "exp(x)" 
+                      :interpolation "MonotoneX"
+                      :filename "MyFirstPlot")
+)
+```
+
 <!-- html_preserve -->
 <div class = "alert alert-danger">
 Currently **d3lisp** has been tested in the following LISP versions:
