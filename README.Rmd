@@ -58,7 +58,7 @@ Which results in the following image:
 The complete code example assuming `d3lisp` is in `Desktop` is as follows:
 ```
 ;;Set directory to functions
-(setf *default-pathname-defaults* (truename "~/Desktop/d3lisp/src"))
+(setf *default-pathname-defaults* (truename "~/Desktop/d3lisp/src/"))
 
 ;;Load functions
 (load "setup.lisp")

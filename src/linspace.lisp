@@ -39,7 +39,7 @@ EXAMPLES:
 
 "
     ;Check input values are different
-    (unless (/= xmin xmax))
+    (unless (/= xmin xmax)
         (error "xmin must be different from xmax")
     )
 

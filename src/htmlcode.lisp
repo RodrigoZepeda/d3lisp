@@ -124,8 +124,12 @@
                     <meta charset = 'utf-8'>
                     <meta name='viewport' content='width=device-width, initial-scale=1'>
                     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-                    <meta name='description' content='Awesome plot'>
-                    <meta name='author' content='Rodrigo Zepeda Tello'>
+                    <meta name='description' content='d3lisp plot'>
+                    <meta name='author' content='d3lisp'>
+
+                    <!-- Favicon ico to include logo -->
+                    <link rel='shortcut icon' href='/webpage/favicon.ico' type='image/x-icon'>
+                    <link rel='icon' href='/webpage/favicon.ico' type='image/x-icon'>
 
                     <!--Nice bootstrap format (could be simplified to improve loading)-->
                     <link href='https://bootswatch.com/3/cerulean/bootstrap.css' rel='stylesheet' media = 'all'>
