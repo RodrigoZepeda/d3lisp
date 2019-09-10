@@ -128,8 +128,8 @@
                     <meta name='author' content='d3lisp'>
 
                     <!-- Favicon ico to include logo -->
-                    <link rel='shortcut icon' href='/webpage/favicon.ico' type='image/x-icon'>
-                    <link rel='icon' href='/webpage/favicon.ico' type='image/x-icon'>
+                    <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'>
+                    <link rel='icon' href='favicon.ico' type='image/x-icon'>
 
                     <!--Nice bootstrap format (could be simplified to improve loading)-->
                     <link href='https://bootswatch.com/3/cerulean/bootstrap.css' rel='stylesheet' media = 'all'>

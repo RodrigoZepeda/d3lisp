@@ -15,6 +15,12 @@ d3lisp: A d3js interface for plotting on LISP
 
 <!--/html_preserve-->
 
+## TL;DR
+
+See the example gallery at
+<https://rodrigozepeda.github.io/d3lisp/index.html#examples_for_getting_started>
+.
+
 ## Setup
 
 **d3lisp** is a [d3js](https://d3js.org/) interface for creating plots
@@ -28,7 +34,7 @@ in ANSI Common LISP. To run it you need to:
 
 <!-- end list -->
 
-    (setf *default-pathname-defaults* (truename "path/to/project/src"))
+    (setf *default-pathname-defaults* (truename "path/to/project/src/"))
 
 3.  Load `setup.lisp` to set up the functions:
 
@@ -68,7 +74,7 @@ The complete code example assuming `d3lisp` is in `Desktop` is as
 follows:
 
     ;;Set directory to functions
-    (setf *default-pathname-defaults* (truename "~/Desktop/d3lisp/src"))
+    (setf *default-pathname-defaults* (truename "~/Desktop/d3lisp/src/"))
     
     ;;Load functions
     (load "setup.lisp")

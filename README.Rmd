@@ -14,6 +14,9 @@ knitr::opts_chunk$set(echo = TRUE)
 </div>
 <!--/html_preserve-->
 
+## TL;DR
+See the example gallery at [https://rodrigozepeda.github.io/d3lisp/index.html#examples_for_getting_started](https://rodrigozepeda.github.io/d3lisp/index.html#examples_for_getting_started) .
+
 ## Setup
 
 **d3lisp** is a [d3js](https://d3js.org/) interface for creating plots in ANSI Common LISP. To run it you need to: 
@@ -21,7 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 1. Download the project (either `git clone https://github.com/RodrigoZepeda/d3lisp/` or click on `Download` button). We will call the directory where the project kept as `"path/to/project"`.
 2. (Optional) Set up a directory with all the files, in LISP:
 ```
-(setf *default-pathname-defaults* (truename "path/to/project/src"))
+(setf *default-pathname-defaults* (truename "path/to/project/src/"))
 ```
 3. Load `setup.lisp` to set up the functions:
 ```

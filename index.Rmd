@@ -4,11 +4,14 @@ author: ""
 date: ""
 output:
   html_document: 
+      includes:
+        in_header: "webpage/favicon.html" 
       toc: true
       highlight: null
       css: webpage/atom-one-light.css
       toc_float: true
       toc_depth: 3
+
 ---
 
 <!--html_preserve-->
@@ -98,7 +101,7 @@ Click aquí para ir a versión en ESPAÑOL
 1. Download the project (either `git clone https://github.com/RodrigoZepeda/d3lisp/` or click on `Download` button). We will call the directory where the project kept as `"path/to/project"`.
 2. (Optional) Set up a directory with all the files, in LISP:
 ```{clisp, eval = FALSE}
-(setf *default-pathname-defaults* (truename "path/to/project/src"))
+(setf *default-pathname-defaults* (truename "path/to/project/src/"))
 ```
 3. Load `setup.lisp` to set up the functions:
 ```{clisp, eval = FALSE}
