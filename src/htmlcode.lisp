@@ -54,7 +54,7 @@
     )
 
     (if (not (stringp plotheight)) (setf plotheight (write-to-string (coerce plotheight 'single-float))))
-    (if (not (stringp plotwidth)) (setf plotwidth (write-to-string (coerce plotwidth 'single-float))))
+    (if (not (stringp plotwidth))  (setf plotwidth (write-to-string (coerce plotwidth 'single-float))))
 
     (if (string= plotheight "default")
         (setf plotheight "0.9*Math.max(document.documentElement['clientHeight'], document.body['scrollHeight'], document.documentElement['scrollHeight'], document.body['offsetHeight'], document.documentElement['offsetHeight'])")
