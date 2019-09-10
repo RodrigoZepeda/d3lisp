@@ -83,7 +83,6 @@ follows:
                           :xlab "x" :ylab "exp(x)" 
                           :interpolation "MonotoneX"
                           :filename "MyFirstPlot"))
-    )
 
 The plot is saved to a file called `MyFirstPlot.html` in your current
 directory.
