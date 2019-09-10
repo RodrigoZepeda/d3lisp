@@ -1,5 +1,19 @@
+
+<!--html_preserve-->
+
+<div style="text-align:center;">
+
+<img src="examples/logo.svg" width = "25%;">
+
+<h1>
+
 d3lisp: A d3js interface for plotting on LISP
-================
+
+</h1>
+
+</div>
+
+<!--/html_preserve-->
 
 ## Setup
 
@@ -32,18 +46,15 @@ in ANSI Common LISP. To run it you need to:
 The function for creating the plots is `createplot`. Here, for example,
 we plot the exponential function:
 
-    (let* (
-            (x (list 0 0.5 1 1.5 2 2.5 3 3.5 4 4.5 5))
-            (y (mapcar #'exp x))
-          )
+    (let* ((x (list 0 0.5 1 1.5 2 2.5 3 3.5 4 4.5 5))
+           (y (mapcar #'exp x)))
           (createplot x y :title "Exponential"  :squareplot T  
                           :title-fontsize 100 
                           :margin (list 10 10 10 10)
                           :padding (list 150 30 60 60) 
                           :xlab "x" :ylab "exp(x)" 
                           :interpolation "MonotoneX"
-                          :filename "MyFirstPlot")
-    )
+                          :filename "MyFirstPlot"))
 
 Which results in the following image:
 
@@ -63,17 +74,15 @@ follows:
     (load "setup.lisp")
     
     ;;Create plot
-    (let* (
-            (x (list 0 0.5 1 1.5 2 2.5 3 3.5 4 4.5 5))
-            (y (mapcar #'exp x))
-          )
+    (let* ((x (list 0 0.5 1 1.5 2 2.5 3 3.5 4 4.5 5))
+           (y (mapcar #'exp x)))
           (createplot x y :title "Exponential"  :squareplot T  
                           :title-fontsize 100 
                           :margin (list 10 10 10 10)
                           :padding (list 150 30 60 60) 
                           :xlab "x" :ylab "exp(x)" 
                           :interpolation "MonotoneX"
-                          :filename "MyFirstPlot")
+                          :filename "MyFirstPlot"))
     )
 
 The plot is saved to a file called `MyFirstPlot.html` in your current

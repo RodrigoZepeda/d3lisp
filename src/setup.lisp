@@ -1,4 +1,4 @@
-;CALL EACH OF THE PACKAGE FUNCTIONS
+;;;;CALL EACH OF THE PACKAGE'S FUNCTIONS
 
 ;Each plot has a different number to make them distinguishable
 (defvar *plotnumber* 1)

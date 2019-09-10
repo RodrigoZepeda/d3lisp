@@ -14,7 +14,7 @@ output:
 <!--html_preserve-->
 <div style = "text-align:center;">
   <img src="examples/logo.svg" width = "25%;">
-  <h1>D3LISP</h1>
+  <h1>d3lisp</h1>
 </div>
 <script src="webpage/highlight.pack.js"></script>
 <script> hljs.initHighlightingOnLoad(); </script>
