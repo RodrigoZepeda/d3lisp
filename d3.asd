@@ -1,7 +1,7 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: CL-USER -*-
 
 ;Loading asdf in SBCL http://www.sbcl.org/asdf/Using-asdf-to-load-systems.html
-;
+
 (asdf:defsystem #:d3
   :description "D3js interface for Common Lisp"
   :version "0.1"
@@ -13,8 +13,8 @@
   :components
   ((:file "package")
    (:file "d3-init")
-   (:file "createplot")
+   (:file "plot")
    (:file "auxiliary-functions")
-   (:file "htmlcode")
+   (:file "html-wrappers")
    (:file "javascript-wrappers")
-   (:file "curveexamples")))
+   (:file "curves")))

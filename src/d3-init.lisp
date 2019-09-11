@@ -6,7 +6,7 @@
 ;(defvar *create-instance* T) ;I think this came from Hunchentoot
 
 ;; Set this to the directory where plots should be generated
-;; I DIDN'T UNDERSTAND THIS PART
+;; I DIDN'T UNDERSTAND WHY INCLUDE THIS PART IN PACKAGE
 ;;(setf *default-pathname-defaults* (truename "/path/to/project/plots/"))
 
 ;Examples of curves already made
