@@ -256,8 +256,8 @@
                                                 .text(title);
 
 /*--------------------------------------PART THAT NEEDS TO BE IN LISP LOOP*/"
-                                        (generate-lines (length x))
-                                        (generate-scatters (length x))
+                                        (generate-paths (length x))
+                                        (generate-points (length x))
                                         (generate-annotations annotations :annotations-color annotations-color
                                             :annotations-fontsize annotations-fontsize)
 "/*--------------------------------------END OF PART THAT NEEDS TO BE IN LISP LOOP*/

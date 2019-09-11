@@ -18,7 +18,7 @@
                             (filename (concatenate 'string "Myplot" (write-to-string *plot-number*))))
 
     ;;Update plot number
-    (setq *plot-number* (1+ *plot-number*))
+    (setf *plot-number* (1+ *plot-number*))
 
     ;;Call function and write plot to file
     (with-open-file
