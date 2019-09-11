@@ -2,16 +2,16 @@
 (in-package #:d3)
 
 (defun htmlcode (x y  &key (xlab "My x label") (ylab "My y label") (title "My Title") (size 7)
-                            (xmin NIL) (ymin NIL) (xmax NIL) (ymax NIL) (scattercolor "green")
-                            (linecolor "purple") (linewidth 3) (strokefill "none") (line T) (scatter T)
+                            (xmin NIL) (ymin NIL) (xmax NIL) (ymax NIL) (scatter-color "green")
+                            (line-color "purple") (line-width 3) (stroke-fill "none") (line T) (scatter T)
                             (interpolation "Linear") (showXaxis T) (showYaxis T)
                             (axisX_label_color "black") (axisY_label_color "black")
                             (axisX_tick_color "black") (axisY_tick_color "black") (axisX_color "black")
-                            (axisY_color "black") (lineopacity 1) (scatteropacity 1)
+                            (axisY_color "black") (line-opacity 1) (scatter-opacity 1)
                             (yaxispos NIL) (xaxispos NIL)
                             (plotheight "default") (plotwidth "default")
                             (outercolor "none") (innercolor "none") (annotations NIL)
-                            (annotations-color "black") (annotations-fontsize 12)
+                            (annotations-color "black") (annotations-font-size 12)
                             (title-fontsize 18) (title-color "black")
                             (margin (list 10 10 10 10)) (padding (list 30 30 60 60))
                             (squareplot NIL) (save NIL) (svgname "Myplot")
@@ -73,18 +73,18 @@
     (setf scatter        (increase-list-length scatter           (length x)))
     (setf line           (increase-list-length line              (length x)))
     (setf size           (increase-list-length size              (length x)))
-    (setf linewidth      (increase-list-length linewidth         (length x)))
-    (setf lineopacity    (increase-list-length lineopacity       (length x)))
-    (setf scatteropacity (increase-list-length scatteropacity    (length x)))
-    (setf scattercolor   (increase-list-length scattercolor      (length x)))
-    (setf linecolor      (increase-list-length linecolor         (length x)))
-    (setf strokefill     (increase-list-length strokefill        (length x)))
+    (setf line-width      (increase-list-length line-width         (length x)))
+    (setf line-opacity    (increase-list-length line-opacity       (length x)))
+    (setf scatter-opacity (increase-list-length scatter-opacity    (length x)))
+    (setf scatter-color   (increase-list-length scatter-color      (length x)))
+    (setf line-color      (increase-list-length line-color         (length x)))
+    (setf stroke-fill     (increase-list-length stroke-fill        (length x)))
     (setf interpolation  (increase-list-length interpolation     (length x)))
     (setf interpolation  (increase-list-length interpolation     (length x)))
     (if (and (listp annotations) (not (null annotations)))
         (progn
             (setf annotations-color     (increase-list-length annotations-color     (length annotations)))
-            (setf annotations-fontsize  (increase-list-length annotations-fontsize  (length annotations)))
+            (setf annotations-font-size  (increase-list-length annotations-font-size  (length annotations)))
         )
     )
 
@@ -157,9 +157,9 @@
 "/*---------------------------------VARIABLES FOR LISP LOOP*/
 "
                                     (instantiate-javascript x y :scatter scatter :line line :size size
-                                        :linewidth linewidth :lineopacity lineopacity
-                                        :scatteropacity scatteropacity :scattercolor scattercolor
-                                        :linecolor linecolor :strokefill strokefill
+                                        :line-width line-width :line-opacity line-opacity
+                                        :scatter-opacity scatter-opacity :scatter-color scatter-color
+                                        :line-color line-color :stroke-fill stroke-fill
                                         :interpolation interpolation)
 
 "/*---------------------------------END OF VARIABLES FOR LISP LOOP*/
@@ -259,7 +259,7 @@
                                         (generate-paths (length x))
                                         (generate-points (length x))
                                         (generate-annotations annotations :annotations-color annotations-color
-                                            :annotations-fontsize annotations-fontsize)
+                                            :annotations-font-size annotations-font-size)
 "/*--------------------------------------END OF PART THAT NEEDS TO BE IN LISP LOOP*/
 
                                         if (showXaxis){

@@ -148,17 +148,17 @@
                         "line"           (write-to-string i) "=" (nth i line) ","
                         "radii"          (write-to-string i) "=" (write-to-string
                                             (coerce (nth i size) 'single-float)) ","
-                        "line-width"     (write-to-string i) "=" (write-to-string
+                        "linewidth"     (write-to-string i) "=" (write-to-string
                                             (coerce (nth i line-width) 'single-float)) ","
-                        "line-opacity"   (write-to-string i) "=" (write-to-string
+                        "lineopacity"   (write-to-string i) "=" (write-to-string
                                             (coerce (nth i line-opacity) 'single-float)) ","
-                        "scatter-opacity"(write-to-string i) "=" (write-to-string
+                        "scatteropacity"(write-to-string i) "=" (write-to-string
                                             (coerce (nth i scatter-opacity) 'single-float)) ","
-                        "scatter-color"  (write-to-string i) "=" (concatenate 'string "'"
+                        "scattercolor"  (write-to-string i) "=" (concatenate 'string "'"
                                             (nth i scatter-color) "'") ","
-                        "line-color"     (write-to-string i) "=" (concatenate 'string "'"
+                        "linecolor"     (write-to-string i) "=" (concatenate 'string "'"
                                             (nth i line-color) "'") ","
-                        "stroke-fill"    (write-to-string i) "=" (concatenate 'string "'"
+                        "strokefill"    (write-to-string i) "=" (concatenate 'string "'"
                                             (nth i stroke-fill) "'") ","
                         "plotcurve"      (write-to-string i) "= d3.curve"
                                             (nth i interpolation) ";"))))
@@ -186,14 +186,14 @@
         // Append the path to svg according to characteristics
         inner.append('path')
             .attr('d', myline(xdata))
-            .style('stroke-width', line-width)
-            .style('stroke', line-color)
-            .style('opacity',line-opacity)
-            .style('fill', stroke-fill);
+            .style('strokewidth', line-width)
+            .style('stroke', linecolor)
+            .style('opacity',lineopacity)
+            .style('fill', strokefill);
     }
     //END OF JAVASCRIPT CODE
 
-    where xdata, ydata, line-width, line-color, line-opacity,
+    where xdata, ydata, linewidth, linecolor, lineopacity,
     strokefill and plotcurve are as specified by
     instantiate-javascript
 
@@ -241,10 +241,10 @@
 
                             inner.append('path')
                                 .attr('d', myline(xdata" i-character "))
-                                .style('stroke-width', line-width" i-character ")
-                                .style('stroke', line-color" i-character ")
-                                .style('opacity',line-opacity" i-character ")
-                                .style('fill', stroke-fill" i-character");
+                                .style('strokewidth', linewidth" i-character ")
+                                .style('stroke', linecolor" i-character ")
+                                .style('opacity',lineopacity" i-character ")
+                                .style('fill', strokefill" i-character");
                         }"))))
         javascript-string))
 
@@ -265,12 +265,12 @@
             .attr('cy', function(d){return Yscale(d);}) // translate y
             .attr('cx', function(d,k){return Xscale(xdata[k]);})
             .attr('r', radii) // radius of circle
-            .style('opacity', scatter-opacity)
-            .style('fill', scatter-color);
+            .style('opacity', scatteropacity)
+            .style('fill', scattercolor);
     }
     //END OF JAVASCRIPT CODE
 
-    where xdata, ydata, radii, scatter-color, scatter-opacity,
+    where xdata, ydata, radii, scattercolor, scatteropacity,
     are as specified by instantiate-javascript.
 
     --------------------------------------------------------
@@ -315,8 +315,8 @@
                                 .attr('cy', function(d){return Yscale(d);}) // translate y
                                 .attr('cx', function(d,k){return Xscale(xdata" i-character "[k]);})
                                 .attr('r', radii" i-character ") // radius of circle
-                                .style('opacity', scatter-opacity" i-character ")
-                                .style('fill', scatter-color" i-character ");
+                                .style('opacity', scatteropacity" i-character ")
+                                .style('fill', scattercolor" i-character ");
                         }
                         "))))
         javascript-string))
@@ -384,12 +384,12 @@
     ;Check that colors are assigned and are of correct size
     (when (null annotations-color)
         (setf annotations-color (make-list (length annotations) :initial-element "black")))
-    (setf annotations-color (increase-list-length annotations-color (length x)))
+    (setf annotations-color (increase-list-length annotations-color (length annotations)))
 
     ;Check that font-size are assigned and are of correct size
     (when (null annotations-font-size)
         (setf annotations-font-size (make-list (length annotations) :initial-element 12)))
-    (setf annotations-font-size (increase-list-length annotations-font-size (length x)))
+    (setf annotations-font-size (increase-list-length annotations-font-size (length annotations)))
 
     ;;Create the javascript code
     (let ((javascript-string ""))

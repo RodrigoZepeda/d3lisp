@@ -6,7 +6,8 @@
 ;(defvar *create-instance* T) ;I think this came from Hunchentoot
 
 ;; Set this to the directory where plots should be generated
-(setf *default-pathname-defaults* (truename "/path/to/project/plots/"))
+;; I DIDN'T UNDERSTAND THIS PART
+;;(setf *default-pathname-defaults* (truename "/path/to/project/plots/"))
 
 ;Examples of curves already made
 ;(load "curveexamples.lisp")
