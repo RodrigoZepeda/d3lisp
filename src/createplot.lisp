@@ -15,10 +15,10 @@
                             (title-fontsize 18) (title-color "black")
                             (margin (list 10 10 10 10)) (padding (list 30 30 60 60))
                             (squareplot NIL) (save NIL) (svgname "Myplot")
-                            (filename (concatenate 'string "Myplot" (write-to-string *plotnumber*))))
+                            (filename (concatenate 'string "Myplot" (write-to-string *plot-number*))))
 
     ;;Update plot number
-    (setq *plotnumber* (1+ *plotnumber*))
+    (setq *plot-number* (1+ *plot-number*))
 
     ;;Call function and write plot to file
     (with-open-file
@@ -42,7 +42,7 @@
                 :title-fontsize title-fontsize :title-color title-color
                 :margin margin :padding padding
                 :squareplot squareplot :save save :svgname svgname
-                :plotnum (1- *plotnumber*)
+                :plotnum (1- *plot-number*)
             )
       )
     )

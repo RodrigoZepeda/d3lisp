@@ -2,8 +2,8 @@
 (in-package #:d3)
 
 ;Each plot has a different number to make them distinguishable
-(defvar *plotnumber* 1)
-(defvar *createinstance* T)
+(defvar *plot-number* 1)
+;(defvar *create-instance* T) ;I think this came from Hunchentoot
 
 ;; Set this to the directory where plots should be generated
 (setf *default-pathname-defaults* (truename "/path/to/project/plots/"))

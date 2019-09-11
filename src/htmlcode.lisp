@@ -70,21 +70,21 @@
     )
 
     ;Check lengths of line-specific variables
-    (setf scatter        (checklengths scatter           (length x)))
-    (setf line           (checklengths line              (length x)))
-    (setf size           (checklengths size              (length x)))
-    (setf linewidth      (checklengths linewidth         (length x)))
-    (setf lineopacity    (checklengths lineopacity       (length x)))
-    (setf scatteropacity (checklengths scatteropacity    (length x)))
-    (setf scattercolor   (checklengths scattercolor      (length x)))
-    (setf linecolor      (checklengths linecolor         (length x)))
-    (setf strokefill     (checklengths strokefill        (length x)))
-    (setf interpolation  (checklengths interpolation     (length x)))
-    (setf interpolation  (checklengths interpolation     (length x)))
+    (setf scatter        (increase-list-length scatter           (length x)))
+    (setf line           (increase-list-length line              (length x)))
+    (setf size           (increase-list-length size              (length x)))
+    (setf linewidth      (increase-list-length linewidth         (length x)))
+    (setf lineopacity    (increase-list-length lineopacity       (length x)))
+    (setf scatteropacity (increase-list-length scatteropacity    (length x)))
+    (setf scattercolor   (increase-list-length scattercolor      (length x)))
+    (setf linecolor      (increase-list-length linecolor         (length x)))
+    (setf strokefill     (increase-list-length strokefill        (length x)))
+    (setf interpolation  (increase-list-length interpolation     (length x)))
+    (setf interpolation  (increase-list-length interpolation     (length x)))
     (if (and (listp annotations) (not (null annotations)))
         (progn
-            (setf annotations-color     (checklengths annotations-color     (length annotations)))
-            (setf annotations-fontsize  (checklengths annotations-fontsize  (length annotations)))
+            (setf annotations-color     (increase-list-length annotations-color     (length annotations)))
+            (setf annotations-fontsize  (increase-list-length annotations-fontsize  (length annotations)))
         )
     )
 
@@ -156,7 +156,7 @@
                                 "<script>"
 "/*---------------------------------VARIABLES FOR LISP LOOP*/
 "
-                                    (generatevars x y :scatter scatter :line line :size size
+                                    (instantiate-javascript x y :scatter scatter :line line :size size
                                         :linewidth linewidth :lineopacity lineopacity
                                         :scatteropacity scatteropacity :scattercolor scattercolor
                                         :linecolor linecolor :strokefill strokefill
