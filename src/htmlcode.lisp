@@ -1,3 +1,6 @@
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: D3 -*-
+(in-package #:d3)
+
 (defun htmlcode (x y  &key (xlab "My x label") (ylab "My y label") (title "My Title") (size 7)
                             (xmin NIL) (ymin NIL) (xmax NIL) (ymax NIL) (scattercolor "green")
                             (linecolor "purple") (linewidth 3) (strokefill "none") (line T) (scatter T)
