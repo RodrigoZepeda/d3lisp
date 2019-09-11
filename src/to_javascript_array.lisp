@@ -1,4 +1,7 @@
-;;;FUNCTION THAT TRANSFORMS LISP LIST TO JAVASCRIPT ARRAY
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: D3 -*-
+(in-package #:d3)
+
+;;FUNCTION THAT TRANSFORMS LISP LIST TO JAVASCRIPT ARRAY
 
 (defun to_javascript_array (x)
 "

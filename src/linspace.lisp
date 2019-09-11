@@ -1,4 +1,7 @@
-;;;;FUNCTION EQUIVALENT TO MATLAB'S LINSPACE
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: D3 -*-
+(in-package #:d3)
+
+;; FUNCTION EQUIVALENT TO MATLAB'S LINSPACE
 
 (defun linspace (xmin xmax &key (lengthout 100))
 "

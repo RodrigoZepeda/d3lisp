@@ -1,3 +1,6 @@
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: D3 -*-
+(in-package #:d3)
+
 (defun hipotrochoid (R1 R2 &key (center (list 0 0)) (d 1) (angle-points (linspace 0 (* 5 pi))))
     (let (x y)
         (setf x (mapcar 

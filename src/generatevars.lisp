@@ -1,3 +1,6 @@
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: D3 -*-
+(in-package #:d3)
+
 (defun generatevars 
     (x y &key 
         (scatter        (make-list (length x) :initial-element "true")) 
@@ -138,4 +141,5 @@
         )
         javascript_string
     )
-)
+    )
+
