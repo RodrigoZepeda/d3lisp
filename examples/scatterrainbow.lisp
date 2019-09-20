@@ -1,23 +1,15 @@
-;;Simulates 1000 points assigning each a different color
-(setf n 2000) ;;Number of points in simulation
-(setf x     (mapcar (lambda (x) (list (1- (random 2.0)))) (make-list n)))
-(setf y     (mapcar (lambda (x) (list (1- (random 2.0)))) (make-list n)))
-(setf color 
-    (mapcar 
-        (lambda (x) 
-            (concatenate 'string "rgb(" 
-                        (write-to-string (random 255)) "," 
-                        (write-to-string (random 255)) "," 
-                        (write-to-string (random 255)) ")"
-            )
-        ) 
-        (make-list n)
-    )
-)
-(setf sizes (mapcar (lambda (x) (1+ (random 10))) (make-list n)))
-(createplot x y :line NIL 
-        :title "Random points just floating around"
-        :xlab "Some variable"
-        :ylab "Some boring note"
-        :scatteropacity 0.5 :scattercolor color :size sizes)
-
+;;Simulates 500 points assigning each a different color
+(let* ((n 500) ;;Number of points in simulation
+       (x          (loop for i from 0 below n collect (list (random 1.0))))
+       (y          (loop for i from 0 below n collect (list (random 1.0))))
+       (point-size (loop for i from 0 below n collect (1+ (random 25))))
+       (color      (loop for i from 0 below n collect
+                      (concatenate 'string "rgb("
+                         (write-to-string (random 255)) ","
+                         (write-to-string (random 255)) ","
+                         (write-to-string (random 255)) ")"))))
+       (plot x y :line NIL
+                 :title "Random points just floating around"
+                 :x-label "Some variable"
+                 :y-label "Some boring note"
+                 :scatter-opacity 0.5 :scatter-color color :size point-size))

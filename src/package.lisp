@@ -5,4 +5,12 @@
 (cl:defpackage #:d3
   (:use #:cl)
   (:export :range
-           :createplot))
+           :plot
+           :hipotrochoid
+           :ngon
+           :epitrochoid
+           :hipocycloid
+           :epicycloid
+           :bicorn
+           :involute
+           :archimedes))
