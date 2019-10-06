@@ -1,4 +1,7 @@
-;Interpolation examples
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: D3 -*-
+(in-package #:d3)
+
+;;; Interpolation examples
 (let* ((x (make-list 8 :initial-element (range 0 10 :length-out 5)))
        (y (make-list 8 :initial-element (mapcar #'sin (first x)))))
       (plot x y :title "Interpolation examples" :x-label "x" :y-label "sin"

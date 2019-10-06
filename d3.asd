@@ -1,12 +1,10 @@
-;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: CL-USER -*-
-
-;Loading asdf in SBCL http://www.sbcl.org/asdf/Using-asdf-to-load-systems.html
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: CL-USER -*-
 
 (asdf:defsystem #:d3
   :description "D3js interface for Common Lisp"
-  :version "0.1"
+  :version "0.2.0"
   :author "Rodrigo Zepeda-Tello"
-  :maintainer "Steven Nunez <steve.nunez@symbolics.com.sg>"
+  :author "Steven Nunez"
   :license "MIT"
   :pathname "src/"
   :serial t
@@ -18,3 +16,4 @@
    (:file "html-wrappers")
    (:file "javascript-wrappers")
    (:file "curves")))
+

@@ -1,4 +1,4 @@
-;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: D3 -*-
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: D3 -*-
 (in-package #:d3)
 
 ;; FUNCTION FOR CREATING THE PLOT
@@ -17,7 +17,7 @@
                        (title-font-size 18)(title-color "black")
                        (square-plot NIL)(save NIL)(svg-name "Myplot")
                        (margin (list 10 10 10 10))(padding (list 30 30 60 60))
-                       (file-name (concatenate 'string "Myplot" (write-to-string *plot-number*))))
+		       (file-name "plot"))
     "
     DESCRIPTION:
     --------------------------------------------------------
@@ -122,32 +122,37 @@
     --------------------------------------------------------
 
     "
-    ;;Update plot number
-    (setf *plot-number* (1+ *plot-number*))
 
-    ;;Call function and write plot to file
-    (with-open-file
-      (str (concatenate 'string file-name ".html")
-           :direction :output
-           :if-exists :supersede
-           :if-does-not-exist :create)
-      (format str
-            (generate-html-page x y
-                :x-label x-label :y-label y-label :title title :size size
-                :x-minimum x-minimum :y-minimum y-minimum :x-maximum x-maximum
-                :y-maximum y-maximum :scatter-color scatter-color
-                :line-color line-color :line-width line-width :stroke-fill stroke-fill
-                :line line :scatter scatter
-                :interpolation interpolation :show-x-axis show-x-axis :show-y-axis show-y-axis
-                :axis-x-label-color axis-x-label-color :axis-y-label-color axis-y-label-color
-                :axis-x-tick-color axis-x-tick-color :axis-y-tick-color axis-y-tick-color
-                :axis-x-color axis-x-color :axis-y-color axis-y-color
-                :line-opacity line-opacity :scatter-opacity scatter-opacity
-                :x-axis-position x-axis-position :y-axis-position y-axis-position
-                :plot-height plot-height :plot-width plot-width
-                :outer-background-color outer-background-color
-                :inner-background-color inner-background-color :annotations annotations
-                :annotations-color annotations-color :annotations-font-size annotations-font-size
-                :title-font-size title-font-size :title-color title-color
-                :margin margin :padding padding :square-plot square-plot :save save
-                :svg-name svg-name :plot-number (1- *plot-number*)))))
+    ;; Call function and write plot to file
+    (with-open-file (str (translate-logical-pathname (concatenate 'string "d3:plots;"
+								  file-name "-"
+								  (write-to-string *plot-number*)
+								  ".html"))
+		     :direction :output
+		     :if-exists :supersede
+		     :if-does-not-exist :create)
+  (format str
+	  (generate-html-page x y
+			      :x-label x-label :y-label y-label :title title :size size
+			      :x-minimum x-minimum :y-minimum y-minimum :x-maximum x-maximum
+			      :y-maximum y-maximum :scatter-color scatter-color
+			      :line-color line-color :line-width line-width :stroke-fill stroke-fill
+			      :line line :scatter scatter
+			      :interpolation interpolation :show-x-axis show-x-axis :show-y-axis show-y-axis
+			      :axis-x-label-color axis-x-label-color :axis-y-label-color axis-y-label-color
+			      :axis-x-tick-color axis-x-tick-color :axis-y-tick-color axis-y-tick-color
+			      :axis-x-color axis-x-color :axis-y-color axis-y-color
+			      :line-opacity line-opacity :scatter-opacity scatter-opacity
+			      :x-axis-position x-axis-position :y-axis-position y-axis-position
+			      :plot-height plot-height :plot-width plot-width
+			      :outer-background-color outer-background-color
+			      :inner-background-color inner-background-color
+			      :annotations annotations
+			      :annotations-color annotations-color
+			      :annotations-font-size annotations-font-size
+			      :title-font-size title-font-size :title-color title-color
+			      :margin margin :padding padding :square-plot square-plot :save save
+			      :svg-name svg-name :plot-number *plot-number*)))
+
+    ;;Update plot number
+    (setf *plot-number* (1+ *plot-number*)))

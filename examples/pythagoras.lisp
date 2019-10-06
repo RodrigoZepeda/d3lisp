@@ -1,4 +1,7 @@
-;;Pythagorean theorem representation
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: D3 -*-
+(in-package #:d3)
+
+;;; Pythagorean theorem representation
 (let* ((triangle1x (list 0 4 0 0))
        (triangle1y (list 0 0 3 0))
 

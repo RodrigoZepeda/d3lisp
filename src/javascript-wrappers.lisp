@@ -1,4 +1,4 @@
-;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: D3 -*-
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: D3 -*-
 (in-package #:d3)
 
 ;;FUNCTION THAT TRANSFORMS LISP LIST TO JAVASCRIPT ARRAY

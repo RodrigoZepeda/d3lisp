@@ -1,4 +1,7 @@
-;;Creates a plot of 50 shades of gray
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: D3 -*-
+(in-package #:d3)
+
+;;; Creates a plot of 50 shades of gray
 (let* ((n 50)
        (x (make-list n))
        (y (make-list n))

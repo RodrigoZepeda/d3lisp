@@ -1,4 +1,4 @@
-;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: D3 -*-
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: D3 -*-
 (in-package #:d3)
 
 (defun hipotrochoid (R1 R2 &key (center (list 0 0)) (d 1) (angle-points (range 0 (* 5 pi))))

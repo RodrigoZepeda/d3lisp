@@ -1,12 +1,13 @@
-;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: CL-USER -*-
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: CL-USER -*-
 
-;;(asdf:load-system :d3)
-;;(use-package 'd3)
 (cl:defpackage #:d3
   (:use #:cl)
   (:export :range
-           :plot
-           :hipotrochoid
+           :plot))
+
+(cl:defpackage #:d3-examples
+  (:use #:cl #:d3)
+  (:export :hipotrochoid
            :ngon
            :epitrochoid
            :hipocycloid

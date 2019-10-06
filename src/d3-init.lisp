@@ -1,13 +1,14 @@
-;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-lisp; Package: D3 -*-
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: D3 -*-
 (in-package #:d3)
 
 ;Each plot has a different number to make them distinguishable
 (defvar *plot-number* 1)
-;(defvar *create-instance* T) ;I think this came from Hunchentoot
 
 ;; Set this to the directory where plots should be generated
-;; I DIDN'T UNDERSTAND WHY INCLUDE THIS PART IN PACKAGE
-;;(setf *default-pathname-defaults* (truename "/path/to/project/plots/"))
+;;(defvar *d3-pathname-defaults* (truename "/path/to/project/"))
+(defvar *d3-pathname-defaults* (truename "s:/src/d3/"))
+(defun d3-pathname () "Return the base directory for D3." *d3-pathname-defaults*)
 
-;Examples of curves already made
-;(load "curveexamples.lisp")
+(setf (logical-pathname-translations "D3")
+      `(("**;*.*.*" ,(merge-pathnames "**/*.*" (d3-pathname)))))
+

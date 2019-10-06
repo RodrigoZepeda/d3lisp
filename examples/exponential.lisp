@@ -1,4 +1,7 @@
-;Exponential example using range
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: D3 -*-
+(in-package #:d3)
+
+;;; Exponential example using range
 (let* ((x (range 0 5 :length-out 10))
        (y (mapcar #'exp x)))
       (plot x y :title "Exponential" :square-plot T :title-font-size 100

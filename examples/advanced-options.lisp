@@ -1,4 +1,7 @@
-;;This shows all the options available for the user
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: D3 -*-
+(in-package #:d3)
+
+;;; This shows all the options available for the user
 (let ((x (list 1 2 3 4 5))
       (y (list 1 -2 3 -4 5)))
   (plot x y
