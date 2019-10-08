@@ -1,21 +1,21 @@
-;Creation of curve museum
-(let ((x1 (first  (hipocycloid 3 1  :center (list -15 10)
+;Creation of curve museum 
+(let ((x1 (first  (hypocycloid 3 1  :center (list -15 10)
                                     :angle-points (range 0 (* 2 pi) :length-out 1000))))
-      (y1 (second (hipocycloid 3 1  :center (list -15 10)
+      (y1 (second (hypocycloid 3 1  :center (list -15 10)
                                     :angle-points (range 0 (* 2 pi) :length-out 1000))))
       (a1 (list "Deltoid" -15 3))
 
-      (x2 (first  (hipocycloid 3 (/ 3 4)  :center (list 0 10)
+      (x2 (first  (hypocycloid 3 (/ 3 4)  :center (list 0 10)
                                           :angle-points (range 0 (* 2 pi) :length-out 1000))))
-      (y2 (second (hipocycloid 3 (/ 3 4)  :center (list 0 10)
+      (y2 (second (hypocycloid 3 (/ 3 4)  :center (list 0 10)
                                           :angle-points (range 0 (* 2 pi) :length-out 1000))))
       (a2 (list "Astroid" 0 3))
 
-      (x3 (first  (hipocycloid 4.1 1.1 :center (list 15 10)
+      (x3 (first  (hypocycloid 4.1 1.1 :center (list 15 10)
                                        :angle-points (range 0 (* 50 pi) :length-out 1000))))
-      (y3 (second (hipocycloid 4.1 1.1 :center (list 15 10)
+      (y3 (second (hypocycloid 4.1 1.1 :center (list 15 10)
                                        :angle-points (range 0 (* 50 pi) :length-out 1000))))
-      (a3 (list "Hipocycloid" 15 3))
+      (a3 (list "Hypocycloid" 15 3))
 
       (x4 (first  (epicycloid 1 1 :center (list -15 25)
                                   :angle-points (range 0 (* 50 pi) :length-out 1000))))
@@ -57,8 +57,8 @@
                                          :angle-points (range 0 (* 50 pi) :length-out 1000))))
       (a10 (list "Epitrochoid" -15 47))
 
-      (x11 (first  (ngon 100 :r 3 :center (list 0 55))))
-      (y11 (second (ngon 100 :r 3 :center (list 0 55))))
+      (x11 (first  (ngon 100 :apothem 3 :center (list 0 55))))
+      (y11 (second (ngon 100 :apothem 3 :center (list 0 55))))
       (a11 (list "Circle" 0 47))
 
       (x12 (first  (hipotrochoid 3.1 1.1  :d 1.5 :center (list 15 55)
