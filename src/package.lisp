@@ -10,7 +10,7 @@
   (:export :hipotrochoid
            :ngon
            :epitrochoid
-           :hipocycloid
+           :hypocycloid
            :epicycloid
            :bicorn
            :involute
