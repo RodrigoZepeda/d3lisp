@@ -5,8 +5,8 @@
 (defvar *plot-number* 1)
 
 ;; Plots will be written to a "plots/" subdirectory beneath this directory
-;(defvar *d3-pathname-default* (truename "/path/to/project/"))
-(defvar *d3-pathname-default* (truename "s:/src/d3/"))
+(defvar *d3-pathname-default* (truename "/path/to/project/"))
+;(defvar *d3-pathname-default* (truename "s:/src/d3/")) ; Example
 (defun d3-pathname () "Return the base directory for D3." *d3-pathname-default*)
 (setf (logical-pathname-translations "D3")
       `(("**;*.*.*" ,(merge-pathnames "**/*.*" (d3-pathname)))))
@@ -21,12 +21,12 @@
 ;;; etc. Each browser will require different options. The example
 ;;; settings work with Chrome on MS Windows.
 
-;(defparameter *browser* nil)		;Set to path of browser executable
-;(defparameter *browser-options* nil)	;Command-line options passed to browser
+(defparameter *browser* nil)		;Set to path of browser executable
+(defparameter *browser-options* nil)	;Command-line options passed to browser
 
 ;Example settings
-(defparameter *browser* "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe")
-(defparameter *browser-options* "--app=")
+;(defparameter *browser* "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe")
+;(defparameter *browser-options* "--app=")
 
 
 
