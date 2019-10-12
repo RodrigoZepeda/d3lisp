@@ -3,7 +3,6 @@
 
 ;Creation of curve museum 
 (let ((x1 (first  (hypocycloid 3 1  :center (list -15 10)
->>>>>>> upstream/master:examples/curvemuseum.lisp
                                     :angle-points (range 0 (* 2 pi) :length-out 1000))))
       (y1 (second (hypocycloid 3 1  :center (list -15 10)
                                     :angle-points (range 0 (* 2 pi) :length-out 1000))))

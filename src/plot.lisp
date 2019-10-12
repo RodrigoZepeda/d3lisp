@@ -124,13 +124,13 @@
     "
 
     ;; Call function and write plot to file
-    (with-open-file (str (translate-logical-pathname (concatenate 'string "d3:plots;"
-								  file-name "-"
-								  (write-to-string *plot-number*)
-								  ".html"))
-		     :direction :output
-		     :if-exists :supersede
-		     :if-does-not-exist :create)
+    (with-open-file (str (make-pathname :host "d3"
+					:directory "plots"
+					:name (concatenate 'string file-name "-" (write-to-string *plot-number*))
+					:type "html")
+			 :direction :output
+			 :if-exists :supersede
+			 :if-does-not-exist :create)
   (format str
 	  (generate-html-page x y
 			      :x-label x-label :y-label y-label :title title :size size
@@ -153,6 +153,15 @@
 			      :title-font-size title-font-size :title-color title-color
 			      :margin margin :padding padding :square-plot square-plot :save save
 			      :svg-name svg-name :plot-number *plot-number*)))
+
+    (when *browser*
+      (uiop:run-program `(,*browser*
+			  ,(concatenate 'string
+					*browser-options*
+					"file:///" (namestring (truename (make-pathname :host "d3"
+											:directory "plots"
+											:name (concatenate 'string file-name "-" (write-to-string *plot-number*))
+											:type "html")))))))
 
     ;;Update plot number
     (setf *plot-number* (1+ *plot-number*)))
