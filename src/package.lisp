@@ -1,7 +1,7 @@
 ;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: CL-USER -*-
 
 (cl:defpackage #:d3
-  (:use #:cl)
+  (:use #:cl #:alexandria)
   (:export :range
            :plot))
 

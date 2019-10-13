@@ -1,18 +1,18 @@
 ;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: D3 -*-
 (in-package #:d3)
 
-;;FUNCTION THAT TRANSFORMS LISP LIST TO JAVASCRIPT ARRAY
+;;FUNCTION THAT TRANSFORMS LISP SEQUENCE TO JAVASCRIPT ARRAY
 (defun to-javascript-array (x)
     "
     DESCRIPTION:
     --------------------------------------------------------
-    Function for transforming a numerical LISP list to a
+    Function for transforming a numerical LISP SEQUENCE to a
     Javascript array
     --------------------------------------------------------
 
     INPUT:
     --------------------------------------------------------
-    - x: A LISP numerical list
+    - x: A LISP numerical SEQUENCE
 
     OUTPUT:
     --------------------------------------------------------
@@ -24,20 +24,23 @@
     ;Create an array with numbers 1, 2 and 3
     (to-javascript-array (list 1 2 3))
 
+    ; Create an array from a vector
+    (to-javascript-array #(1 2 3))
+
     ;List elements must be numeric
     (to-javascript-array (list 'a' 2 3))
     --------------------------------------------------------
 
     "
-    (when (and (listp x) (not (null x)))
-        (let ((javascript-array "["))
-            (dolist (xelem (butlast x) javascript-array)
-                (setf javascript-array
-                  (concatenate 'string javascript-array
-                    (write-to-string (coerce xelem 'single-float)) ",")))
-            (setf javascript-array
-                (concatenate 'string javascript-array (write-to-string
-                  (coerce (car (last x)) 'single-float)) "]")))))
+  (declare (sequence x))
+  (with-output-to-string (jsa)
+    (write-string "[" jsa)
+    (etypecase x
+      (vector (loop for e across x
+		 do (format jsa "~A" e) ; Not ~F because JavaScript does not handle scientific notation (?)
+		 unless (eq e (last-elt x)) do (format jsa ","))) 
+      (list   (format jsa "~{~A~^,~}" x))) ; Sadly, format iteration does not work on vectors
+    (write-string "]" jsa)))
 
 ;;FUNCTION THAT INSTANTIATES JAVASCRIPT VARIABLES FOR PLOTTING
 (defun instantiate-javascript

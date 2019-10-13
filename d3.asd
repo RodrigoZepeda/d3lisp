@@ -6,6 +6,7 @@
   :author "Rodrigo Zepeda-Tello"
   :author "Steven Nunez"
   :license "MIT"
+  :depends-on (#:alexandria)
   :pathname "src/"
   :serial t
   :components
