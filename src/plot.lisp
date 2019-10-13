@@ -15,7 +15,7 @@
                        (outer-background-color "none")(inner-background-color "none")
                        (annotations NIL)(annotations-color "black")(annotations-font-size 12)
                        (title-font-size 18)(title-color "black")
-                       (square-plot NIL)(save NIL)(svg-name "Myplot")
+                       (square-plot NIL)(save NIL)(svg-name "plot")
                        (margin (list 10 10 10 10))(padding (list 30 30 60 60))
 		       (file-name "plot"))
     "
@@ -126,7 +126,7 @@
     ;; Call function and write plot to file
     (with-open-file (str (make-pathname :host "d3"
 					:directory "plots"
-					:name (concatenate 'string file-name "-" (write-to-string *plot-number*))
+					:name file-name
 					:type "html")
 			 :direction :output
 			 :if-exists :supersede
@@ -160,8 +160,7 @@
 					*browser-options*
 					"file:///" (namestring (truename (make-pathname :host "d3"
 											:directory "plots"
-											:name (concatenate 'string file-name "-" (write-to-string *plot-number*))
-											:type "html")))))))
+											:name file-name
+											:type "html"))))))))
 
-    ;;Update plot number
-    (setf *plot-number* (1+ *plot-number*)))
+
