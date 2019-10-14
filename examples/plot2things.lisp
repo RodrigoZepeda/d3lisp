@@ -1,4 +1,7 @@
-;Plot two variables at same time
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: D3 -*-
+(in-package #:d3)
+
+;;; Plot two variables at same time
 (let* ((x (list (range 0 10) (range 0 10)))
        (y (list (mapcar #'sin (first x)) (mapcar #'cos (second x)))))
        (plot x y :title "My favorite trigonometric functions"

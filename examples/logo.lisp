@@ -1,4 +1,7 @@
-;CREATE d3lisp LOGO
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: D3 -*-
+(in-package #:d3)
+
+;;; CREATE d3lisp LOGO
 (let ((x1 (first  (epitrochoid 2.17 1.13 :d 1.5 :angle-points
             (range 0 (* 50 pi) :length-out 1000))))
       (y1 (second (epitrochoid 2.17 1.13  :d 1.5 :angle-points

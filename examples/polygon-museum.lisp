@@ -1,4 +1,7 @@
-;;Polygon museum
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: D3 -*-
+(in-package #:d3)
+
+;;; Polygon museum
 (let ((x1 (list 0))
       (y1 (list 0))
       (x2 (first   (ngon 3 :r 2)))

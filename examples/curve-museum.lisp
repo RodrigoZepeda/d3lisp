@@ -1,3 +1,6 @@
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: D3 -*-
+(in-package #:d3)
+
 ;Creation of curve museum 
 (let ((x1 (first  (hypocycloid 3 1  :center (list -15 10)
                                     :angle-points (range 0 (* 2 pi) :length-out 1000))))

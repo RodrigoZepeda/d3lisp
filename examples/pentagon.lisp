@@ -1,4 +1,7 @@
-;Regular ngon
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: D3 -*-
+(in-package #:d3)
+
+;;; Regular ngon
 (let ((x (first (ngon 5)))
       (y (second (ngon 5))))
       (plot x y :title "Pentagon" :square-plot T :stroke-fill "#47476b"

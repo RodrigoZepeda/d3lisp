@@ -1,4 +1,7 @@
-;;Simulates 500 points assigning each a different color
+;;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: D3 -*-
+(in-package #:d3)
+
+;;; Simulates 500 points assigning each a different color
 (let* ((n 500) ;;Number of points in simulation
        (x          (loop for i from 0 below n collect (list (random 1.0))))
        (y          (loop for i from 0 below n collect (list (random 1.0))))
